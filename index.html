@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#05070B">
+<meta name="description" content="Apps para estudiar ciencias: animaciones interactivas, lectura completa, exámenes y práctica.">
+<title>Estudio de ciencias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+:root{color-scheme:dark;--bg:#05070B;--surface:rgba(16,21,30,.86);--surface2:#161D29;--ink:#ECF0F6;--muted:#A9B3C4;--line:#2A3446;--accent:#8EAAF7;--focus:#FFC23D;--old:#45C8C0;--new:#B98CF7;--rna:#F59048;
+ --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;--body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--ink);font:17px/1.55 var(--body);background:radial-gradient(1100px 560px at 90% -10%,rgba(76,138,240,.16),transparent 62%),radial-gradient(900px 520px at -8% 110%,rgba(185,140,247,.14),transparent 62%),var(--bg);background-attachment:fixed}
+canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+main{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:56px max(16px,env(safe-area-inset-left,0px)) 64px}
+.kick{font:700 .8rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0}
+h1{font:800 clamp(2.2rem,6vw,3.4rem)/1.05 var(--display);margin:10px 0 12px;letter-spacing:-.01em}
+.lead{color:var(--muted);max-width:56ch;margin:0 0 36px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:18px}
+a.card{display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit;background:var(--surface);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid var(--line);border-top:4px solid var(--c);border-radius:16px;padding:22px;transition:transform .15s,border-color .15s}
+a.card:hover{transform:translateY(-3px);border-color:var(--c)}
+a.card:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.tag{font:700 .72rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--c)}
+.card h2{font:800 1.5rem/1.15 var(--display);margin:0}
+.card p{margin:0;color:var(--muted)}
+.flow{font:700 .85rem var(--mono);color:var(--ink)}
+.go{margin-top:auto;font-weight:700;color:var(--c)}
+footer{margin-top:40px;color:var(--muted);font-size:.9rem}
+@media (prefers-reduced-motion:reduce){a.card{transition:none}a.card:hover{transform:none}}
+</style>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<main>
+  <p class="kick">Mis apps de estudio</p>
+  <h1>Estudio de ciencias</h1>
+  <p class="lead">Cada tema tiene una animación interactiva del proceso, toda la información para leer, un examen con el formato de la profesora y práctica rápida.</p>
+  <div class="grid">
+    <a class="card" href="replicacion-del-adn/" style="--c:var(--new)">
+      <span class="tag">Biología</span>
+      <h2>Replicación del ADN</h2>
+      <span class="flow">1 ADN → 2 ADN</span>
+      <p>Helicasa, primasa, ADN polimerasa, hebra continua y discontinua, fragmentos de Okazaki y ligasa.</p>
+      <span class="go">Abrir →</span>
+    </a>
+    <a class="card" href="transcripcion-del-adn/" style="--c:var(--rna)">
+      <span class="tag">Biología</span>
+      <h2>Transcripción del ADN</h2>
+      <span class="flow">ADN → ARN → proteína</span>
+      <p>Promotor, factores basales, ARN polimerasa II, caperuza, splicing, cola poli(A) y terminación.</p>
+      <span class="go">Abrir →</span>
+    </a>
+  </div>
+  <footer>Fuentes: videos y PPT de clase. Lo que no viene de ahí está marcado como "Externo" dentro de cada app.</footer>
+</main>
+<script>
+(function(){const c=document.getElementById('bg');if(!c.getContext)return;const x=c.getContext('2d');
+ const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;let W,H;
+ function size(){const d=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;x.setTransform(d,0,0,d,0,0)}
+ size();addEventListener('resize',()=>{size();if(rm)paint(0)});
+ const col=[[91,141,239],[76,200,143],[239,91,91],[242,193,78]];
+ function helix(cx,tilt,amp,sp,t){x.save();x.translate(cx,H/2);x.rotate(tilt);
+  for(let i=0;i<Math.ceil(H*1.5/16);i++){const y=-H*.75+i*16,ph=y/62+t*sp,s=Math.sin(ph),co=Math.cos(ph);
+   if(i%2===0){x.strokeStyle=`rgba(${col[i%4].join(',')},${(.14+.14*Math.abs(co)).toFixed(3)})`;x.lineWidth=2.4;x.beginPath();x.moveTo(s*amp,y);x.lineTo(-s*amp,y);x.stroke()}
+   x.fillStyle=`rgba(69,200,192,${(.2+.3*(co+1)/2).toFixed(3)})`;x.beginPath();x.arc(s*amp,y,3+2*co,0,6.283);x.fill();
+   x.fillStyle=`rgba(185,140,247,${(.2+.3*(1-co)/2).toFixed(3)})`;x.beginPath();x.arc(-s*amp,y,3-2*co+2,0,6.283);x.fill()}
+  x.restore()}
+ function paint(t){x.clearRect(0,0,W,H);const a=Math.max(30,Math.min(56,W*.04));helix(W*.05,-.2,a,.5,t);helix(W*.95,.2,a,-.4,t)}
+ if(rm){paint(0);return}let last=0;(function loop(ts){if(ts-last>33){last=ts;paint(ts/1000)}requestAnimationFrame(loop)})(0);
+})();
+</script>
+</body>
+</html>
