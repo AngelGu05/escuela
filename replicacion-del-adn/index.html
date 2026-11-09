@@ -59,6 +59,13 @@ main{padding-block:22px 60px}
 .pill.p{color:var(--exon);border-color:rgba(45,186,163,.5)}
 .pill.a{color:var(--tmpl);border-color:rgba(169,138,243,.5)}
 .pill.x{color:var(--prom);border-color:rgba(242,184,62,.55);background:rgba(242,184,62,.1)}
+.pill.e{color:#F48FB1;border-color:rgba(244,143,177,.55)}
+.ppopts{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:4px 16px;border:1px solid var(--rule);padding:10px 12px;font-size:.92rem;margin-bottom:12px}
+.pprows .pprow{display:grid;grid-template-columns:78px minmax(0,1fr);gap:4px 10px;align-items:center;border:1px solid var(--rule);border-top:0;padding:6px 10px}
+.pprows .pprow:first-child{border-top:1px solid var(--rule)}
+.pprow .corr{grid-column:2}
+.pprow select{background:var(--stage);border:1px solid var(--line);border-radius:6px;color:var(--accent);font-weight:800;padding:4px;width:100%}
+.pprow select.ok{border-color:var(--ok);color:var(--ok)}.pprow select.bad{border-color:var(--bad);color:var(--bad)}
 
 .card{background:rgba(16,21,30,.86);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:14px;padding:18px}
 .btn{border:1px solid var(--line);background:var(--surface2);padding:8px 14px;border-radius:10px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;color:var(--ink)}
@@ -383,7 +390,7 @@ input.bad{border-bottom-color:var(--bad)!important;color:var(--bad)!important;te
     </aside>
   </div>
   <div class="legend"><span>Fuentes:</span>
-    <span class="pill v">Video</span><span class="pill p">PPT</span><span class="pill x">Externo</span>
+    <span class="pill v">Video</span><span class="pill p">PPT</span><span class="pill e">Examen anterior</span><span class="pill x">Externo</span>
     <span>· Lo marcado como externo no está ni en el video ni en el PPT: se agregó para completar o corregir. · Atajos: espacio = pausa, ← → = retroceder/adelantar.</span></div>
 </section>
 
@@ -450,6 +457,39 @@ input.bad{border-bottom-color:var(--bad)!important;color:var(--bad)!important;te
         <tr><td>—</td><td><b>Exonucleasa</b> y <b>ADN polimerasa I</b> (video)</td><td>La exonucleasa elimina los primers; la ADN polimerasa I rellena esos espacios con ADN.</td><td>Finalización</td></tr>
         <tr><td>8</td><td><b>ADN ligasa</b></td><td>Une los espacios que se generan en la hebra retrasada (el video dice: en ambas cadenas).</td><td>Finalización</td></tr>
       </table></div>
+    </div>
+
+    <div class="card wide">
+      <h2>Lo que salió en el examen del año pasado <span class="src"><span class="pill e">Examen anterior</span><span class="pill x">Externo</span></span></h2>
+      <p class="muted">Parcial #2 – Replicación del ADN (80 puntos). Además de replicación preguntó temas de <b>transcripción y ARN</b>. Formato: I. Completar (30) · II. Pareo con códigos (25, las opciones pueden repetirse) · III. Desarrollo (5) · IV. Análisis de imágenes (20). En la pestaña <b>Examen</b> elige "Como el parcial #2".</p>
+      <div class="tbl"><table>
+        <tr><th>Tema</th><th>Lo que hay que saber</th></tr>
+        <tr><td>Dónde y cuándo</td><td>Fase <b>S</b>, en el <b>núcleo</b>. Requiere <b>hebra molde</b> y <b>ATP</b> (respuesta aceptada).</td></tr>
+        <tr><td>Fuente de energía</td><td><span class="pill x">Externo</span> Los <b>desoxirribonucleótidos trifosfato</b>: al unirse a la cadena liberan dos fosfatos. "ATP" se marcó mal en esta pregunta.</td></tr>
+        <tr><td>Desenrollamiento levógiro (2 pts)</td><td><span class="pill x">Externo</span> El ADN es una hélice <b>dextrógira</b> (hacia la derecha). Se desenrolla girando al revés, hacia la izquierda (<b>levógiro</b>), para separar las cadenas y que las enzimas trabajen sobre los moldes.</td></tr>
+        <tr><td>Restricción de la ADN polimerasa</td><td>Solo trabaja 5′→3′ y necesita un primer. Lo resuelve con fragmentos de Okazaki en la hebra rezagada; luego la ligasa une los espacios.</td></tr>
+        <tr><td>Promotor y TATA</td><td>Al <b>promotor</b> se unen la ARN polimerasa y el factor de transcripción. La <b>caja TATA</b> pertenece al ADN, participa en la transcripción y su importancia es que <b>ahí se unen los factores de transcripción y la ARN polimerasa</b>.</td></tr>
+        <tr><td>Exones</td><td>Secciones del gen que codifican aminoácidos.</td></tr>
+        <tr><td>Tipos de ARN</td><td><b>ARNm</b>: lleva la información del núcleo al citoplasma. <b>ARNt</b>: transporta aminoácidos. <b>ARNr</b>: el más abundante y de mayor peso molecular; lee el ARNm en el ribosoma. <b>ARNn</b> (nucleolar): al fragmentarse forma los ARNr.</td></tr>
+        <tr><td>Svedberg (S)</td><td>Unidad que indica la velocidad de sedimentación en la centrifugación. Con ella se nombran los ARNr.</td></tr>
+        <tr><td>Usos del ARN</td><td>a. Síntesis de proteínas. b. Puede ser utilizado <b>directamente por la célula</b> (no "por el núcleo").</td></tr>
+        <tr><td>Errores en la transcripción</td><td>Se relacionan principalmente con el <b>cáncer</b>.</td></tr>
+        <tr><td>Genes y cáncer</td><td><b>p53</b>: controla la transcripción de genes durante la división celular. <b>Rb</b>: bloquea a otros factores de transcripción y evita que avance la división; se asocia al retinoblastoma. <b>RE</b> (receptor de estrógeno): trabaja con el estrógeno y posibilita el cáncer de mama y de ovario.</td></tr>
+        <tr><td>Fosfodiéster</td><td><span class="pill x">Externo</span> Enlace que une un nucleótido con el siguiente dentro de la misma cadena.</td></tr>
+        <tr><td>Pasos de la transcripción (8 pts)</td><td>1) El factor de transcripción reconoce el promotor. 2) La ARN polimerasa se une al factor y reconoce TATA. 3) Se mueve a lo largo del ADN copiando hasta el final del gen. 4) Se cae y el ARN se libera (puede repetirse). 5) Si codifica proteína, sale al citoplasma.</td></tr>
+      </table></div>
+    </div>
+
+    <div class="card wide">
+      <h2>Ojo: respuestas que la profesora marcó mal <span class="src"><span class="pill e">Examen anterior</span></span></h2>
+      <ul class="clean">
+        <li><b>"Dirección en que se forma la cadena de ARN": "5′ a 3′" se marcó mal.</b> Científicamente el ARN sí se forma de 5′ a 3′ (el molde se lee de 3′ a 5′). Pregúntale qué espera; mientras tanto escribe las dos: "se lee el molde 3′→5′ y el ARN crece 5′→3′".</li>
+        <li><b>Fuente de energía de la replicación:</b> "ATP" se marcó mal. Respuesta más probable: los desoxirribonucleótidos trifosfato.</li>
+        <li><b>Importancia de TATA:</b> "marca la región de inicio" se marcó mal. Di que <b>ahí se unen</b> los factores de transcripción y la ARN polimerasa.</li>
+        <li><b>Usos del ARN:</b> no es "por el núcleo", es "por la célula".</li>
+        <li><b>"Sitio en que la ARN polimerasa transporta sus nucleótidos":</b> "región TATA" se marcó mal y en la hoja no se ve la respuesta correcta. Pregúntale a tu profesora.</li>
+        <li><b>Imagen de la IV Parte:</b> las partes a, c y d se marcaron mal ("hebra molde", "dirección", "nucleótidos") y la foto no deja ver bien qué señalaban. Lo más probable: <b>a</b> = horquilla de replicación y <b>c</b>/<b>d</b> = las hebras nuevas (continua y discontinua) o los fragmentos de Okazaki.</li>
+      </ul>
     </div>
 
     <div class="card">
@@ -543,7 +583,7 @@ function matches(ans,keys,not){const n=norm(ans);if(!n)return false;if(not&&not.
   return keys.some(k=>k[0]==='='?n===norm(k.slice(1)):n.includes(norm(k)));}
 const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 const fmt=n=>(Math.round(n*10)/10).toString().replace('.',',');
-const SRCN={v:'Video',p:'PPT',a:'Apuntes',x:'Externo'};
+const SRCN={v:'Video',p:'PPT',a:'Apuntes',x:'Externo',e:'Examen anterior'};
 const pills=s=>`<span class="src">${[...(s||'')].map(c=>`<span class="pill ${c}">${SRCN[c]}</span>`).join('')}</span>`;
 const SAMPLE_P=(window.claude&&window.claude.use)?window.claude.use('sample').catch(()=>null):Promise.resolve(null);
 const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
@@ -1186,51 +1226,112 @@ const ABS=[
   m:'La ADN polimerasa III solo trabaja en sentido 5′→3′. Abajo, ese sentido va hacia la horquilla, así que la hebra continua (líder) se alarga sin detenerse con un solo primer (A). Arriba, el molde va en sentido contrario, así que la copia debe hacerse alejándose de la horquilla: cada vez que se abre más molde, la primasa pone un nuevo primer y la polimerasa fabrica un fragmento de Okazaki (B). Por eso la replicación es semidiscontinua.',
   svg:()=>ABfig(51,65.5)}];
 
+/* ---------- del examen anterior (Parcial #2) ---------- */
+FILL.push(
+ {id:'x1',tp:'tra',st:null,q:'Sección de ADN a la que se une la ARN polimerasa y el factor de transcripción:',parts:[{k:['promotor'],show:'promotor'}],ex:'Examen anterior. El promotor está antes del gen y contiene la caja TATA.'},
+ {id:'x2',tp:'tra',st:null,q:'Son las secciones del gen que codifican aminoácidos:',parts:[{k:['exon'],not:['intron'],show:'exones'}],ex:'Examen anterior. Los intrones se eliminan; los exones quedan en el ARNm maduro.'},
+ {id:'x3',tp:'gen',st:0,q:'En relación a la replicación, diga:',parts:[{p:'a. Fase en que ocurre',k:['=s','fase s','periodo s','sintesis'],show:'fase S'},{p:'b. Sitio en que se desarrolla',k:['nucleo'],show:'núcleo'},{p:'c. Dos factores que requiere para su realización',k:['molde','atp','enzima','nucleotido','energia','primer','polimerasa'],show:'hebra molde y ATP'}],ex:'Examen anterior: "hebra molde, ATP" se marcó como correcto en la c.'},
+ {id:'x4',tp:'tra',st:null,q:'Unidad de medida que indica la velocidad de centrifugación de una molécula (nombre y símbolo):',parts:[{k:['svedberg','svedverg','svedbergs'],show:'Svedberg (S)'}],ex:'Con ella se nombran los tipos de ARNr según cómo sedimentan en la ultracentrifugación (PPT de transcripción).'},
+ {id:'x5',tp:'elo',st:4,q:'Corrige los errores que pueden presentarse durante la replicación:',parts:[{k:['polimerasa'],not:['arn'],show:'ADN polimerasa'}],ex:'PPT, paso 6: la misma enzima es capaz de corregir un error.'},
+ {id:'x6',tp:'gen',st:null,q:'Procesos que abarca la expresión génica (solo nombres):',parts:[{p:'a. ',k:['transcripcion'],not:['inversa'],show:'transcripción'},{p:'b. ',k:['traduccion'],show:'traducción'}],ex:'En el examen anterior también se aceptó "replicación, transcripción y traducción".'},
+ {id:'x7',tp:'elo',st:4,q:'Nombre de la enzima que indica la dirección en que se realiza la replicación:',parts:[{k:['polimerasa'],not:['arn'],show:'ADN polimerasa'}],ex:'La ADN polimerasa solo agrega nucleótidos en el extremo 3′, por eso la replicación va de 5′ a 3′.'},
+ {id:'x8',tp:'tra',st:null,q:'De forma general, cuando hay errores en la transcripción (en los factores de transcripción) se presenta principalmente (nombre):',parts:[{k:['cancer'],show:'cáncer'}],ex:'La actividad inapropiada de los factores de transcripción se encontró en casi todos los tipos de cáncer (PPT de transcripción).'},
+ {id:'x9',tp:'tra',st:null,q:'El ARN producto de la transcripción tiene los siguientes usos:',parts:[{p:'a. ',k:['proteina'],show:'síntesis de proteínas (ARNm)'},{p:'b. ',k:['directamente','celula','arnt','arnr','ribosoma'],not:['nucleo'],show:'puede ser utilizado directamente por la célula (ARNt, ARNr)'}],ex:'En el examen anterior, "utilizado directamente por el núcleo" se marcó mal: la profesora corrigió "por la célula".'},
+ {id:'x10',tp:'tra',st:null,q:'Dirección en que se forma la cadena de ARN durante la transcripción:',parts:[{k:['5 3','5 a 3','5prima 3prima'],show:'5′ → 3′ (el molde se lee de 3′ a 5′)'}],ex:'⚠️ En el examen anterior "5′ a 3′" se marcó como incorrecto. Científicamente el ARN se forma de 5′ a 3′ leyendo el molde de 3′ a 5′. Pregúntale a tu profesora qué espera y, por si acaso, escribe las dos cosas.'},
+ {id:'x11',tp:'gen',st:null,q:'El proceso de replicación requiere gran cantidad de energía. Mencione la fuente de dicha energía:',parts:[{k:['trifosfato','dntp','nucleotido'],show:'los desoxirribonucleótidos trifosfato (al unirse a la cadena liberan dos fosfatos)'}],ex:'🔶 Dato externo: ni el video ni el PPT lo dicen. En el examen anterior "ATP" se marcó mal en esta pregunta (aunque la helicasa sí usa ATP). Confírmalo con tu profesora.'},
+ {id:'x12',tp:'tra',st:null,q:'En relación al segmento TATA, diga:',parts:[{p:'a. Proceso en que participa',k:['transcripcion'],not:['inversa'],show:'transcripción'},{p:'b. Molécula a la que pertenece',k:['adn','desoxirribonucleico','promotor'],show:'ADN (está en el promotor)'},{p:'c. Importancia',k:['factor','tbp','polimerasa','se une','union','unen'],show:'ahí se unen los factores de transcripción (TBP) y la ARN polimerasa para iniciar la transcripción'}],ex:'En el examen anterior "marca la región de inicio de la transcripción" se marcó mal en la c: menciona que ahí se UNEN los factores de transcripción y la ARN polimerasa.'},
+ {id:'x13',tp:'tra',st:null,q:'ARN más abundante en la célula y con mayor peso molecular:',parts:[{k:['arnr','ribosomico','ribosomal','arn r'],show:'ARNr (ribosómico)'}],ex:'PPT de transcripción: el ARNr es el más abundante y el de mayor tamaño y peso molecular.'},
+ {id:'x14',tp:'tra',st:null,q:'ARN cuya fragmentación permite la formación del ARNr:',parts:[{k:['nucleolar','arnn','arn n'],show:'ARN nucleolar (ARNn)'}],ex:'PPT de transcripción: una vez formado, se fragmenta y da lugar a los distintos ARNr.'},
+ {id:'x15',tp:'tra',st:null,q:'Gen que controla la transcripción de genes durante la división celular y frena la división si el ADN está dañado:',parts:[{k:['p53','p 53'],show:'p53'}],ex:'Salió en el pareo del examen anterior. 🔶 Se le llama "guardián del genoma".'},
+ {id:'x16',tp:'ini',st:2,q:'Nombre de la enzima que permite la formación de la horquilla de replicación:',parts:[{k:['helicasa','elicasa'],show:'helicasa'}],ex:'Examen anterior.'}
+);
+MC.push(
+ {id:'mx1',tp:'gen',st:2,q:'El ADN es una doble hélice dextrógira (enrollada hacia la derecha). El desenrollamiento levógiro (hacia la izquierda) es importante porque:',o:['gira en sentido contrario al enrollamiento, separa las cadenas y deja los moldes listos para que las enzimas trabajen','une los fragmentos de Okazaki','fabrica los primers','enrolla más el ADN para protegerlo'],a:0,ex:'🔶 Salió en el examen anterior (2 puntos). Solo se dio 1 punto por no explicar que gira en sentido contrario al enrollamiento.'},
+ {id:'mx2',tp:'tra',st:null,q:'La unidad Svedberg (S) indica:',o:['la velocidad de sedimentación de una molécula en la centrifugación','la longitud del ADN','la cantidad de ATP','el número de genes'],a:0,ex:'Con ella se nombran los ARNr según su tamaño.'},
+ {id:'mx3',tp:'tra',st:null,q:'El gen p53:',o:['controla la transcripción de genes durante la división celular','fabrica los primers','une los fragmentos de Okazaki','es un tipo de ARN'],a:0,ex:'Examen anterior (pareo). 🔶 Si el ADN está dañado, detiene la división.'},
+ {id:'mx4',tp:'tra',st:null,q:'La proteína Rb:',o:['bloquea a otros factores de transcripción y evita que avance la división celular','rompe los puentes de hidrógeno','transporta aminoácidos','une fragmentos de ADN'],a:0,ex:'Examen anterior (pareo). Si falla, se asocia a la formación de retinoblastomas.'},
+ {id:'mx5',tp:'tra',st:null,q:'El RE (receptor de estrógeno):',o:['trabaja en conjunto con el estrógeno y posibilita la aparición de cáncer de mama y de ovario','forma la horquilla de replicación','es el ARN de transferencia','se asocia al retinoblastoma'],a:0,ex:'Examen anterior (pareo).'},
+ {id:'mx6',tp:'tra',st:null,q:'Para iniciar la transcripción, en la caja TATA del promotor se unen:',o:['los factores de transcripción y la ARN polimerasa','la helicasa y la ligasa','los ribosomas','los fragmentos de Okazaki'],a:0,ex:'Esa es su importancia. En el examen anterior no bastó con decir "marca el inicio".'},
+ {id:'mx7',tp:'tra',st:null,q:'Durante la transcripción, la ARN polimerasa:',o:['lee el molde de 3′ a 5′ y forma el ARN de 5′ a 3′','forma el ARN de 3′ a 5′','copia las dos cadenas a la vez','necesita un primer para empezar'],a:0,ex:'⚠️ En el examen anterior "5′ a 3′" se marcó mal en la pregunta de dirección. Pregúntale a tu profesora y escribe las dos direcciones (lectura y síntesis).'},
+ {id:'mx8',tp:'tra',st:null,q:'¿Cuál ARN lleva la información del núcleo al citoplasma para la síntesis de proteínas?',o:['ARNm','ARNt','ARNr','ARNn'],a:0,ex:'El ARNm se forma en el núcleo y después pasa al citoplasma.'},
+ {id:'mx9',tp:'tra',st:null,q:'¿Cuál ARN transporta los aminoácidos?',o:['ARNt','ARNm','ARNr','ARNn'],a:0,ex:'Tiene forma de trébol y el anticodón.'},
+ {id:'mx10',tp:'tra',st:null,q:'¿Cuál ARN lee el ARNm en el ribosoma y es el más abundante?',o:['ARNr','ARNt','ARNm','ARNn'],a:0,ex:'Examen anterior (pareo).'},
+ {id:'mx11',tp:'gen',st:null,q:'¿Cuál ESTRUCTURA permite fijar los nucleótidos de ADN que se van adicionando al iniciar una cadena?',o:['el primer','la ligasa','la topoisomerasa','el ARNt'],a:0,ex:'Examen anterior (pareo): el primer (cebador).'}
+);
+CASOS.push(
+ {q:'Explique la restricción que presenta la ADN polimerasa. ¿Cómo logra corregir esa "restricción" durante el proceso que realiza?',
+  m:'La ADN polimerasa solo puede trabajar en dirección 5′→3′ (agrega nucleótidos al –OH del extremo 3′) y necesita un primer para empezar. Por eso la síntesis de la hebra discontinua (rezagada) es más compleja: cada vez que la doble hebra se abre y expone más molde, la primasa agrega un nuevo cebador y la polimerasa sintetiza un segmento hacia atrás, el fragmento de Okazaki. Después se eliminan los cebadores, se rellena con ADN y la ADN ligasa une los espacios.'},
+ {q:'Explique la importancia del desenrollamiento levógiro del ADN durante la replicación.',
+  m:'El ADN es una doble hélice dextrógira (enrollada hacia la derecha, como las manecillas del reloj). Para separar sus cadenas hay que girarlo en sentido contrario, hacia la izquierda (levógiro). Ese desenrollamiento, con la topoisomerasa (alivia la tensión) y la helicasa (rompe los puentes de hidrógeno), deja expuestos los moldes para que las enzimas puedan trabajar sobre ellos y copiarlos.'}
+);
+/* pareo con códigos: las opciones pueden repetirse o no usarse */
+const PAREOP=[['Proteínas de unión a la cadena simple','Mantienen estable la horquilla de replicación'],['ARNm','Lleva la información del núcleo al citoplasma, que permite la síntesis de proteínas'],['Iniciación','Fase en que se forma la horquilla de replicación'],
+ ['ADN ligasa','Une los nucleótidos separados, producto de la formación de los fragmentos de Okazaki'],['Factor de transcripción','Indica el inicio y el fin de la transcripción'],['Topoisomerasa','Enzima que desenrolla al ADN'],
+ ['ARNt','Transporta los aminoácidos para el proceso de síntesis de proteínas'],['TATA','Región de inicio en el proceso de transcripción'],['p53','Controla la transcripción de genes durante la división celular'],
+ ['Primasa','Participa en la replicación, ubicando el primer correspondiente'],['ARN polimerasa','Enzima que se "desplaza" sobre la molécula de ADN durante la transcripción'],['ARNm','Tiene como lugar inicial el núcleo, para después desplazarse al citoplasma'],
+ ['Helicasa','Se encarga de romper los puentes de hidrógeno'],['RE','Posibilita la aparición de cáncer en mamas y ovarios'],['Rb','Bloquea a otros factores de transcripción, evitando el progreso de la división celular'],
+ ['ADN polimerasa I','Elimina los cebadores en la hebra rezagada'],['ARNr','Lee el ARNm y participa en la síntesis de proteínas'],['Primer','Permite fijar los nucleótidos de ADN que se van adicionando'],
+ ['ARNn','Su fragmentación permite la formación de ARNr'],['ADN polimerasa','Agrega los nucleótidos durante la replicación'],['Fragmentos de Okazaki','Segmentos discontinuos de ADN que forman la hebra rezagada'],
+ ['ARNr','ARN más abundante en la célula y con mayor peso molecular'],['RE','Trabaja en conjunto con el estrógeno'],['Rb','Asociado a la formación de retinoblastomas'],
+ ['Elongación','Fase en que la ADN polimerasa alarga las cadenas nuevas'],['Finalización','Fase en que se unen los fragmentos y quedan dos ADN'],['Fosfodiéster','Enlace que une un nucleótido con el siguiente en la misma cadena'],
+ ['ADN polimerasa','Corrige los errores que se presentan durante la replicación'],['Primasa','Fabrica una pequeña cadena de ARN como punto de inicio'],['Topoisomerasa','Alivia la tensión del superenrollamiento'],
+ ['ADN ligasa','Une los espacios que se generan en la hebra retrasada'],['Fragmentos de Okazaki','Se forman entre un primer y otro en la hebra discontinua'],['Factor de transcripción','Se asocia con el inicio de los genes que van a ser transcritos'],
+ ['ARN polimerasa','Fabrica el ARN copiando la hebra molde'],['Primer','Pequeña cadena de ARN que sirve de punto de inicio'],['TATA','Secuencia de adenina y timina dentro del promotor']];
+const I2SC=[{t:30.5,pool:['topo','helicasa','ssb','horquilla','molde','origen']},{t:51,pool:['pol3','continua','primer','helicasa','dntp','molde']},{t:65.2,pool:['primasa','okazaki','pol3','primer','discontinua','continua','ssb']}];
+const ENZ_M='Cualquiera de estas, con su trabajo: topoisomerasa (desenrolla el ADN y alivia la tensión del superenrollamiento); helicasa (rompe los puentes de hidrógeno y forma la horquilla); primasa (fabrica el primer de ARN); ADN polimerasa III (agrega desoxirribonucleótidos de 5′ a 3′ y corrige errores); ADN polimerasa I (elimina los cebadores y rellena con ADN); exonucleasa (elimina los primers); ADN ligasa (une los fragmentos). 1 punto por el nombre y 1 por el trabajo.';
+const STEPS2_M='1) El factor de transcripción reconoce el inicio o promotor (región de ADN próxima al gen donde se unen la ARN polimerasa y los factores de transcripción). 2) La ARN polimerasa se une con el factor de transcripción y reconoce la región de inicio (TATA). 3) La enzima "se mueve" a lo largo del ADN haciendo una copia (ARN) hasta llegar al final del gen. 4) La enzima "se cae" y el ARN es liberado; este proceso puede repetirse varias veces. 5) Si el ARN codifica para una proteína, se exporta del núcleo y se lleva al citoplasma.';
+const TX_SVG=(()=>{const C=['--bA','--bT','--bG','--bC'];let r='';const yt=x=>x<360||x>640?230:230-80*Math.sin(Math.PI*(x-360)/280),yb=x=>x<360||x>640?276:276+80*Math.sin(Math.PI*(x-360)/280);
+ for(let x=50,i=0;x<960;x+=14,i++){const c1=C[i%4],c2=C[(i+1)%4];r+=`<path d="M${x},${(yt(x)+3).toFixed(1)} L${x},${(yt(x)+20).toFixed(1)}" style="stroke:var(${c1});stroke-width:5;opacity:.85"/><path d="M${x},${(yb(x)-20).toFixed(1)} L${x},${(yb(x)-3).toFixed(1)}" style="stroke:var(${c2});stroke-width:5;opacity:.85"/>`;}
+ return `<svg viewBox="0 0 1000 500" role="img" aria-label="Imagen 2: el ADN abierto en una burbuja, una enzima y una cadena que sale">${r}<path d="M40,230 L360,230 Q500,70 640,230 L960,230" style="fill:none;stroke:var(--old);stroke-width:6"/><path d="M40,276 L360,276 Q500,436 640,276 L960,276" style="fill:none;stroke:var(--old);stroke-width:6"/><path d="M590,320 C520,330 480,300 440,200 S330,70 170,60" style="fill:none;stroke:var(--rna);stroke-width:9;stroke-linecap:round"/><ellipse cx="600" cy="300" rx="62" ry="48" style="fill:var(--pol);opacity:.85;stroke:var(--polEdge);stroke-width:2"/></svg>`})();
+
 /* ---------- EXAMEN ---------- */
 let EX=null;
 const ROM=['I','II','III','IV','V','VI'];
 const L4='abcdefghijkl'.split('');
-const LEN={corto:{mc:6,fill:8,par:6,cas:1},normal:{mc:10,fill:15,par:8,cas:1},largo:{mc:16,fill:24,par:10,cas:2}};
-const TYPES=[['mc','Selección única'],['fill','Completar espacios'],['par','Pareo'],['img','Análisis de imágenes'],['cas','Desarrollo']];
-const PRESETS=[['prof','Como la profesora',['mc','fill','img','cas']],['mc','Solo selección única',['mc']],['fill','Solo completar',['fill']],['par','Solo pareo',['par']],['some','Combinar algunos',null],['all','Combinar todos',['mc','fill','par','img','cas']]];
-let exCfg=Object.assign({preset:'prof',some:['mc','par'],len:'normal'},store.get('rp-excfg',{}));
+const LEN={corto:{mc:6,fill:8,par:6,parp:10,cas:1},normal:{mc:10,fill:15,par:8,parp:15,cas:1},largo:{mc:16,fill:24,par:10,parp:25,cas:2}};
+const TYPES=[['mc','Selección única'],['fill','Completar espacios'],['par','Pareo'],['parp','Pareo con códigos'],['img','Análisis de imágenes'],['cas','Desarrollo'],['img2','Imágenes: procesos 1 y 2']];
+const PRESETS=[['parcial','Como el parcial #2 (80 pts)',['fill','parp','cas','img2']],['prof','Como el bimestral',['mc','fill','img','cas']],['mc','Solo selección única',['mc']],['fill','Solo completar',['fill']],['par','Solo pareo',['par']],['some','Combinar algunos',null],['all','Combinar todos',['mc','fill','par','parp','img','cas','img2']]];
+let exCfg=Object.assign({preset:'parcial',some:['mc','par'],len:'normal'},store.get('rp-excfg2',{}));
 function cfgTypes(c){const p=PRESETS.find(x=>x[0]===c.preset)||PRESETS[0];return p[2]?p[2]:(c.some.length?TYPES.map(t=>t[0]).filter(t=>c.some.includes(t)):['mc'])}
-function planPts(c){const t=cfgTypes(c),prof=c.preset==='prof',L=LEN[prof?'normal':c.len];const o=[];
- if(t.includes('mc'))o.push(['mc',L.mc*2.5]);if(t.includes('fill'))o.push(['fill',prof?40:L.fill*2.5]);if(t.includes('par'))o.push(['par',L.par*2]);
- if(t.includes('img'))o.push(['img',30]);if(t.includes('cas'))o.push(['cas',(prof?1:L.cas)*5]);return o}
+function planPts(c){const t=cfgTypes(c),prof=c.preset==='prof',parc=c.preset==='parcial',L=LEN[(prof||parc)?'normal':c.len];const o=[];
+ if(t.includes('mc'))o.push(['mc',L.mc*2.5]);if(t.includes('fill'))o.push(['fill',parc?30:prof?40:L.fill*2.5]);if(t.includes('par'))o.push(['par',L.par*2]);
+ if(t.includes('parp'))o.push(['parp',parc?25:L.parp]);if(t.includes('img'))o.push(['img',30]);if(t.includes('cas'))o.push(['cas',((prof||parc)?1:L.cas)*5]);if(t.includes('img2'))o.push(['img2',20]);return o}
 function renderSetup(){
  const plan=planPts(exCfg),tot=plan.reduce((s,x)=>s+x[1],0);
  $('#exSetup').innerHTML=`<div class="card setup"><h3>¿Cómo quieres el examen?</h3>
   <div class="chips" role="radiogroup" aria-label="Tipo de examen">${PRESETS.map(([k,n])=>`<button type="button" role="radio" aria-checked="${exCfg.preset===k}" class="chip ${exCfg.preset===k?'on':''}" data-preset="${k}">${n}</button>`).join('')}</div>
   ${exCfg.preset==='some'?`<div class="chips sub"><span class="muted">Elige las partes:</span>${TYPES.map(([k,n])=>`<label class="chk"><input type="checkbox" data-type="${k}" ${exCfg.some.includes(k)?'checked':''}> ${n}</label>`).join('')}</div>`:''}
-  ${exCfg.preset==='prof'?'':`<div class="chips sub"><span class="muted">Largo:</span>${[['corto','Corto'],['normal','Normal'],['largo','Largo']].map(([k,n])=>`<button type="button" class="chip ${exCfg.len===k?'on':''}" data-len="${k}">${n}</button>`).join('')}</div>`}
+  ${exCfg.preset==='prof'||exCfg.preset==='parcial'?'':`<div class="chips sub"><span class="muted">Largo:</span>${[['corto','Corto'],['normal','Normal'],['largo','Largo']].map(([k,n])=>`<button type="button" class="chip ${exCfg.len===k?'on':''}" data-len="${k}">${n}</button>`).join('')}</div>`}
   <p class="muted" style="margin:12px 0 0">Tendrá: ${plan.map(([k,v],i)=>`${ROM[i]}. ${TYPES.find(t=>t[0]===k)[1]} (${fmt(v)} pts)`).join(' · ')} — <b>total ${fmt(tot)} puntos</b>.</p>
   <div class="row" style="margin-top:12px"><button class="btn pri" type="button" id="mkExam">Crear examen</button></div></div>`;
 }
 $('#exSetup').addEventListener('click',e=>{
- const pr=e.target.closest('[data-preset]');if(pr){exCfg.preset=pr.dataset.preset;if(exCfg.preset==='prof')exCfg.len='normal';store.set('rp-excfg',exCfg);renderSetup();return}
- const ln=e.target.closest('[data-len]');if(ln){exCfg.len=ln.dataset.len;store.set('rp-excfg',exCfg);renderSetup();return}
+ const pr=e.target.closest('[data-preset]');if(pr){exCfg.preset=pr.dataset.preset;if(exCfg.preset==='prof'||exCfg.preset==='parcial')exCfg.len='normal';store.set('rp-excfg2',exCfg);renderSetup();return}
+ const ln=e.target.closest('[data-len]');if(ln){exCfg.len=ln.dataset.len;store.set('rp-excfg2',exCfg);renderSetup();return}
  if(e.target.closest('#mkExam')){newExam();$('#paper').scrollIntoView({behavior:'smooth',block:'start'})}
 });
 $('#exSetup').addEventListener('change',e=>{const c=e.target.closest('[data-type]');if(!c)return;const k=c.dataset.type;
- exCfg.some=c.checked?[...new Set([...exCfg.some,k])]:exCfg.some.filter(x=>x!==k);store.set('rp-excfg',exCfg);renderSetup();});
+ exCfg.some=c.checked?[...new Set([...exCfg.some,k])]:exCfg.some.filter(x=>x!==k);store.set('rp-excfg2',exCfg);renderSetup();});
 
 function newExam(){
- const types=cfgTypes(exCfg),prof=exCfg.preset==='prof',L=LEN[prof?'normal':exCfg.len];
- const E={types,prof,graded:false};
+ const types=cfgTypes(exCfg),prof=exCfg.preset==='prof',parc=exCfg.preset==='parcial',L=LEN[(prof||parc)?'normal':exCfg.len];
+ const E={types,prof,parc,graded:false};const NF=parc?20:L.fill;
  if(types.includes('mc'))E.mc=shuffle(MC).slice(0,L.mc).map(q=>({q,ord:shuffle(q.o.map((_,i)=>i))}));
- if(types.includes('fill')){const fl=[];let bl=0;for(const q of shuffle(FILL)){if(bl+q.parts.length>L.fill)continue;fl.push(q);bl+=q.parts.length;if(bl>=L.fill)break;}E.fl=fl;E.blanks=bl;E.ppb=prof?40/bl:2.5;}
+ if(types.includes('fill')){const fl=[];let bl=0;for(const q of shuffle(FILL)){if(bl+q.parts.length>NF)continue;fl.push(q);bl+=q.parts.length;if(bl>=NF)break;}E.fl=fl;E.blanks=bl;E.ppb=prof?40/bl:parc?30/bl:2.5;}
  if(types.includes('par')){const pr=shuffle(PAREO);E.par=pr.slice(0,L.par);E.parB=shuffle([...E.par,...pr.slice(L.par,L.par+2)]);}
  if(types.includes('img')){const sc=SCEN[Math.floor(Math.random()*SCEN.length)];E.sc=sc;E.ids=shuffle(sc.ids);E.nums={};E.ids.forEach((id,i)=>E.nums[id]=i+1);E.ab=ABS[Math.floor(Math.random()*ABS.length)];}
- if(types.includes('cas'))E.casos=shuffle(CASOS).slice(0,prof?1:L.cas);
- E.pts={mc:E.mc?E.mc.length*2.5:0,fill:E.fl?E.blanks*E.ppb:0,par:E.par?E.par.length*2:0,img:E.sc?30:0,cas:E.casos?E.casos.length*5:0};
+ if(types.includes('parp')){const n=parc?25:L.parp;const items=shuffle(PAREOP).slice(0,n);const used=[...new Set(items.map(x=>x[0]))];const rest=shuffle([...new Set(PAREOP.map(x=>x[0]))].filter(t=>!used.includes(t))).slice(0,Math.max(3,22-used.length));
+  const opts=shuffle([...used,...rest]);const AZ='ABCDEFGHIJKLMNOPQRSTUVWXYZ';const cs=new Set();while(cs.size<opts.length)cs.add(AZ[Math.floor(Math.random()*26)]+AZ[Math.floor(Math.random()*26)]);E.pp={items,opts,codes:[...cs]};}
+ if(types.includes('img2')){const sc=I2SC[Math.floor(Math.random()*I2SC.length)];const ids=shuffle(sc.pool).slice(0,4);const nums={};ids.forEach((id,k)=>nums[id]=L4[k]);E.i2={t:sc.t,ids,nums};}
+ if(types.includes('cas'))E.casos=shuffle(CASOS).slice(0,(prof||parc)?1:L.cas);
+ E.pts={mc:E.mc?E.mc.length*2.5:0,fill:E.fl?E.blanks*E.ppb:0,par:E.par?E.par.length*2:0,img:E.sc?30:0,cas:E.casos?E.casos.length*5:0,parp:E.pp?E.pp.items.length:0,img2:E.i2?20:0};
  E.total=Object.values(E.pts).reduce((a,b)=>a+b,0);
  EX=E;$('#score').innerHTML='';$('#exStatus').innerHTML='';renderExam();
 }
 function renderExam(){
  const E=EX;let n=0;const P=k=>ROM[n++];
  let h=`<div class="paper" id="paperIn">
- <div class="ph"><h3>Prueba de Biología · Replicación del ADN</h3><b>Vale ${fmt(E.total)} puntos</b></div>
+ <div class="ph"><h3>${E.parc?'Parcial #2 · Replicación del ADN':'Prueba de Biología · Replicación del ADN'}</h3><b>Vale ${fmt(E.total)} puntos</b></div>
  <p class="ind">Indicaciones generales: lea cuidadosamente la prueba antes de contestar.${E.mc?' En la selección única, la letra que elija aparecerá en la casilla de la izquierda.':''}</p>`;
  if(E.mc)h+=`<p class="part">${P()} Parte. Selección única. Vale ${fmt(E.pts.mc)} puntos.</p>
  <p class="pi">Lea el enunciado y seleccione la respuesta correcta. Cada pregunta vale 2,5 puntos.</p>
@@ -1244,6 +1345,10 @@ function renderExam(){
  <p class="pi">Escriba en cada espacio la letra de la columna B que corresponde al enunciado de la columna A. Cada acierto vale 2 puntos. Sobran dos opciones.</p>
  <div class="pareo"><div class="colA"><h4>Columna A</h4>${E.par.map((pp,i)=>`<div class="pa"><div><select id="pa_${i}" aria-label="Letra para el enunciado ${i+1}"><option value="">—</option>${E.parB.map((_,j)=>`<option value="${j}">${L4[j]}</option>`).join('')}</select><div class="corr" id="pac_${i}"></div></div><span>${i+1}. ${esc(pp[1])}</span></div>`).join('')}</div>
   <div class="colB"><h4>Columna B</h4><ol>${E.parB.map((pp,j)=>`<li><b>${L4[j]}.</b> ${esc(pp[0])}</li>`).join('')}</ol></div></div>`;
+ if(E.pp)h+=`<p class="part">${P()} Parte. Pareo. Vale ${fmt(E.pts.parp)} puntos.</p>
+ <p class="pi">Escriba en cada espacio el código de la opción correcta. Las opciones pueden repetirse o no utilizarse. Cada acierto vale 1 punto.</p>
+ <div class="ppopts">${E.pp.opts.map((t,j)=>`<span><b>${E.pp.codes[j]}.</b> ${esc(t)}</span>`).join('')}</div>
+ <div class="pprows">${E.pp.items.map((it,i)=>`<div class="pprow"><select id="pp_${i}" aria-label="Código para: ${esc(it[1])}"><option value="">—</option>${E.pp.codes.map((c,j)=>`<option value="${j}">${c}</option>`).join('')}</select><span>${esc(it[1])}</span><span class="corr" id="ppc_${i}"></span></div>`).join('')}</div>`;
  if(E.sc)h+=`<p class="part">${P()} Parte. Análisis de imágenes. Vale 30 puntos.</p>
  <p class="pi">✓ Identifique las estructuras numeradas y explique su función. Vale 20 puntos (nombre 2 pts, función 2 pts).</p>
  <div class="mini"><svg viewBox="0 0 1000 500" role="img" aria-label="Diagrama numerado de la replicación">${renderAt(E.sc.t,{labels:false,nums:E.nums,interactive:false})}</svg></div>
@@ -1254,6 +1359,19 @@ function renderExam(){
  <textarea id="abAns" aria-label="Respuesta de la comparación A y B"></textarea><div id="abFb"></div>`;
  if(E.casos)h+=`<p class="part">${P()} Parte. Desarrollo. Vale ${fmt(E.pts.cas)} puntos.</p>
  ${E.casos.map((c,k)=>`<div class="case">${E.casos.length>1?`<b>${k+1}.</b> `:''}${esc(c.q)} <span class="muted">(5 puntos)</span></div><textarea id="casoAns_${k}" aria-label="Respuesta de desarrollo ${k+1}"></textarea><div id="casoFb_${k}"></div>`).join('')}`;
+ if(E.i2){const I=E.i2;h+=`<p class="part">${P()} Parte. Análisis de imágenes. Vale 20 puntos.</p>
+ <p class="pi">✓ Observe las imágenes y complete el cuadro presentado.</p>
+ <p class="pi" style="margin:10px 0 0"><b>Imagen 1</b></p><div class="mini"><svg viewBox="0 0 1000 500" role="img" aria-label="Imagen del proceso 1 con partes señaladas">${renderAt(I.t,{labels:false,nums:I.nums,interactive:false})}</svg></div>
+ <p class="pi" style="margin:10px 0 0"><b>Imagen 2</b></p><div class="mini">${TX_SVG}</div>
+ <div class="frows">
+  <div class="frow"><div>Nombre del proceso 1 (1 pt)</div><div class="ins"><input type="text" id="i2p1" autocomplete="off" aria-label="Nombre del proceso 1"><span class="corr" id="i2c1"></span></div></div>
+  <div class="frow"><div>Nombre del proceso 2 (1 pt)</div><div class="ins"><input type="text" id="i2p2" autocomplete="off" aria-label="Nombre del proceso 2"><span class="corr" id="i2c2"></span></div></div>
+  <div class="frow"><div>Escriba el nombre de las partes señaladas en la imagen 1 (1 pt c/u)</div><div class="ins">${I.ids.map((id,k)=>`<label><b>${L4[k]}.</b><input type="text" id="i2l_${k}" autocomplete="off" aria-label="Parte ${L4[k]}"></label><span class="corr" id="i2lc_${k}"></span>`).join('')}</div></div>
+ </div>
+ <p class="pi" style="margin-top:16px">✓ Escriba el nombre y explique el trabajo de tres enzimas que participan en el proceso 1 (2 pts c/u).</p>
+ ${[0,1,2].map(k=>`<p class="pi" style="margin:8px 0 2px">Enzima ${k+1}:</p><textarea id="i2e_${k}" style="min-height:64px" aria-label="Enzima ${k+1}"></textarea><div id="i2ef_${k}"></div>`).join('')}
+ <p class="pi" style="margin-top:16px">✓ Explique los pasos del proceso 2 (8 pts).</p>
+ <textarea id="i2s" aria-label="Pasos del proceso 2"></textarea><div id="i2sf"></div>`;}
  h+=`<div class="submit"><button class="btn pri" id="submitEx" type="button">Entregar examen</button></div></div>`;
  $('#paper').innerHTML=h;
  $('#paperIn').addEventListener('change',e=>{const r=e.target;if(r.type==='radio'&&!EX.graded){const i=r.name.split('_')[1];$('#lt_'+i).textContent=r.dataset.l.toUpperCase();}});
@@ -1264,7 +1382,7 @@ async function submitExam(){
  const E=EX;if(E.graded)return;E.graded=true;
  $('#submitEx').disabled=true;$$('#paperIn input,#paperIn textarea').forEach(x=>x.readOnly=true);$$('#paperIn input[type=radio],#paperIn select').forEach(x=>x.disabled=true);
  const missed=new Set(store.get('rp-missed',[]));
- E.got={mc:0,fill:0,par:0,img:0,cas:0};
+ E.got={mc:0,fill:0,par:0,parp:0,img:0,cas:0,img2:0};
  if(E.mc)E.mc.forEach((it,i)=>{const v=document.querySelector(`input[name="mc_${i}"]:checked`);it.pick=v?+v.value:-1;it.ok=it.pick===it.q.a;if(it.ok){E.got.mc+=2.5;missed.delete(it.q.id)}else missed.add(it.q.id);
   $(`#mco_${i}_${it.q.a}`).classList.add('right');if(it.pick>=0&&!it.ok)$(`#mco_${i}_${it.pick}`).classList.add('wrong');
   const corrL=L4[it.ord.indexOf(it.q.a)];
@@ -1272,12 +1390,19 @@ async function submitExam(){
  if(E.fl)E.fl.forEach((q,i)=>{let allOk=true;q.parts.forEach((p,j)=>{const inp=$(`#f_${i}_${j}`);const ok=matches(inp.value,p.k,p.not);inp.classList.add(ok?'ok':'bad');if(ok)E.got.fill+=E.ppb;else{allOk=false;$(`#fc_${i}_${j}`).textContent='→ '+p.show;}});
    if(allOk)missed.delete(q.id);else missed.add(q.id);$('#ff_'+i).innerHTML=`<span class="exp">${esc(q.ex)}</span>${linkTo(q.st)}`;});
  if(E.par)E.par.forEach((pp,i)=>{const sl=$('#pa_'+i);const right=E.parB.indexOf(pp);const ok=sl.value!==''&&+sl.value===right;sl.classList.add(ok?'ok':'bad');if(ok)E.got.par+=2;else $('#pac_'+i).textContent='→ '+L4[right]+'. '+pp[0];});
+ if(E.pp)E.pp.items.forEach((it,i)=>{const sl=$('#pp_'+i);const right=E.pp.opts.indexOf(it[0]);const ok=sl.value!==''&&+sl.value===right;sl.classList.add(ok?'ok':'bad');if(ok)E.got.parp+=1;else $('#ppc_'+i).textContent='→ '+E.pp.codes[right]+'. '+it[0];});
  store.set('rp-missed',[...missed]);
  E.open=[];
  if(E.sc){E.p3n=0;E.ids.forEach((id,i)=>{const inp=$('#p3n_'+i);const d=DEF[id];const ok=matches(inp.value,d.names||[norm(d.n)],d.not);inp.classList.add(ok?'ok':'bad');if(ok)E.p3n+=2;else $('#p3c_'+i).textContent='→ '+d.n;});
   E.ids.forEach((id,i)=>E.open.push({id:'fn'+i,k:'img',el:'#p3ff_'+i,q:`Función de la estructura "${DEF[id].n}" en la replicación del ADN`,m:DEF[id].fn||DEF[id].h,max:2,a:$('#p3f_'+i).value.trim()}));
   E.open.push({id:'ab',k:'img',el:'#abFb',q:E.ab.q,m:E.ab.m,max:10,a:$('#abAns').value.trim()});}
  if(E.casos)E.casos.forEach((c,k)=>E.open.push({id:'caso'+k,k:'cas',el:'#casoFb_'+k,q:c.q,m:c.m,max:5,a:$('#casoAns_'+k).value.trim()}));
+ if(E.i2){const I=E.i2;E.i2n=0;const chk=(inp,keys,not,show,el)=>{const ok=matches(inp.value,keys,not);inp.classList.add(ok?'ok':'bad');if(ok)E.i2n+=1;else $(el).textContent='→ '+show;};
+  chk($('#i2p1'),['replicacion'],null,'replicación','#i2c1');chk($('#i2p2'),['transcripcion'],['inversa'],'transcripción','#i2c2');
+  I.ids.forEach((id,k)=>{const d=DEF[id];chk($('#i2l_'+k),d.names||[norm(d.n)],d.not,d.n,'#i2lc_'+k)});
+  const en=[0,1,2].map(k=>$('#i2e_'+k).value.trim());
+  en.forEach((a,k)=>E.open.push({id:'i2e'+k,k:'img2',el:'#i2ef_'+k,q:`Escriba el nombre y explique el trabajo de una enzima que participa en la replicación del ADN (enzima ${k+1} de 3). Las otras dos respuestas del estudiante fueron: "${en.filter((_,j)=>j!==k).join('" y "')}". Si repite una enzima que ya escribió antes, vale 0.`,m:ENZ_M,max:2,a}));
+  E.open.push({id:'i2s',k:'img2',el:'#i2sf',q:'Explique los pasos del proceso 2 (la transcripción del ADN).',m:STEPS2_M,max:8,a:$('#i2s').value.trim()});}
  E.open.forEach(o=>{if(!o.a)o.pts=0;});
  const toGrade=E.open.filter(o=>o.a);
  if(!E.open.length){finalize();return}
@@ -1287,7 +1412,7 @@ async function submitExam(){
   $('#exStatus').innerHTML=`<div class="card"><b>Corrigiendo las respuestas abiertas con IA…</b> <span class="muted">Puede tardar hasta un minuto.</span></div>`;
   try{
    const items=toGrade.map(o=>({id:o.id,pregunta:o.q,respuesta_modelo:o.m,puntos_maximos:o.max,respuesta_estudiante:o.a}));
-   const prompt=`Eres profesor(a) de Biología de secundaria y corriges un examen sobre la replicación del ADN.
+   const prompt=`Eres profesor(a) de Biología de secundaria y corriges un examen sobre la replicación del ADN y la transcripción.
 Para cada ítem tienes la pregunta, la respuesta modelo, el puntaje máximo y la respuesta del estudiante.
 Reglas:
 - Da puntos según las ideas correctas, aunque use otras palabras. Puntaje parcial en múltiplos de 0.5, entre 0 y el máximo.
@@ -1322,7 +1447,7 @@ function showOpen(o){
 }
 function finalize(){
  const E=EX;
- E.open.forEach(o=>{E.got[o.k]+=o.pts||0});if(E.sc)E.got.img+=E.p3n;
+ E.open.forEach(o=>{E.got[o.k]+=o.pts||0});if(E.sc)E.got.img+=E.p3n;if(E.i2)E.got.img2+=E.i2n;
  const tot=Object.values(E.got).reduce((a,b)=>a+b,0);
  let n=0;const parts=TYPES.filter(([k])=>E.pts[k]>0).map(([k,nm])=>[`${ROM[n++]} · ${nm}`,E.got[k],E.pts[k]]);
  const pct=tot/E.total*100;
@@ -1342,8 +1467,8 @@ function goStep(n){location.hash='proceso';if(quiz)endQuiz();pause();sel=null;se
 SAMPLE_P.then(s=>{$('#aiNote').textContent=s?'Las preguntas abiertas las corrige la IA.':'Las preguntas abiertas se autoevalúan con la respuesta modelo.'});
 
 /* ---------- PRÁCTICA ---------- */
-const TOPICS=[['est','Estructura del ADN'],['ini','Iniciación'],['elo','Elongación'],['fin','Finalización'],['gen','Lo general']];
-let PR=null,ptSel=new Set(['est','ini','elo','fin','gen']);
+const TOPICS=[['est','Estructura del ADN'],['ini','Iniciación'],['elo','Elongación'],['fin','Finalización'],['gen','Lo general'],['tra','Transcripción y ARN (examen)']];
+let PR=null,ptSel=new Set(['est','ini','elo','fin','gen','tra']);
 function pracHome(){
  const nm=store.get('rp-missed',[]).length;
  $('#prac').innerHTML=`<div class="card"><h2 style="font-size:1.5rem">Práctica rápida</h2><p class="muted" style="margin:6px 0 0">8 preguntas mezcladas (selección y completar), con la explicación al momento.</p>
@@ -1351,7 +1476,7 @@ function pracHome(){
   <div class="row"><button class="btn pri" type="button" id="startP">Empezar</button><button class="btn" type="button" id="startErr" ${nm?'':'disabled'}>Repasar mis errores (${nm})</button></div></div>
   <div class="card"><h2 style="font-size:1.15rem">Otras formas de practicar</h2><ul class="clean" style="margin-top:8px">
    <li><a href="#proceso">Proceso</a> → <b>Ponme a prueba</b>: te pide señalar partes en la animación, como la III Parte del examen.</li>
-   <li><a href="#examen">Examen</a>: simulacro completo de ${fmt(planPts({preset:'prof',some:[],len:'normal'}).reduce((a,x)=>a+x[1],0))} puntos con el formato de tu profesora.</li></ul></div>`;
+   <li><a href="#examen">Examen</a>: simulacro con el formato del Parcial #2 del año pasado (80 puntos) o del bimestral.</li></ul></div>`;
  $('#prac').querySelectorAll('[data-tp]').forEach(b=>b.onclick=()=>{const k=b.dataset.tp;ptSel.has(k)?ptSel.delete(k):ptSel.add(k);if(!ptSel.size)ptSel.add(k);pracHome()});
  $('#startP').onclick=()=>startPractice([...ptSel]);$('#startErr').onclick=()=>startPractice(['err']);
 }
