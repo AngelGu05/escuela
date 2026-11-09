@@ -461,7 +461,7 @@ input.bad{border-bottom-color:var(--bad)!important;color:var(--bad)!important;te
 
     <div class="card wide">
       <h2>Lo que salió en el examen del año pasado <span class="src"><span class="pill e">Examen anterior</span><span class="pill x">Externo</span></span></h2>
-      <p class="muted">Parcial #2 – Replicación del ADN (80 puntos). Además de replicación preguntó temas de <b>transcripción y ARN</b>. Formato: I. Completar (30) · II. Pareo con códigos (25, las opciones pueden repetirse) · III. Desarrollo (5) · IV. Análisis de imágenes (20). En la pestaña <b>Examen</b> elige "Como el parcial #2".</p>
+      <p class="muted">Parcial #2 – Replicación del ADN (80 puntos). Además de replicación preguntó temas de <b>transcripción y ARN</b>. Formato: I. Completar (30) · II. Pareo con códigos (25, las opciones pueden repetirse) · III. Desarrollo (5) · IV. Análisis de imágenes (20). En la pestaña <b>Examen</b> elige "Examen 1".</p>
       <div class="tbl"><table>
         <tr><th>Tema</th><th>Lo que hay que saber</th></tr>
         <tr><td>Dónde y cuándo</td><td>Fase <b>S</b>, en el <b>núcleo</b>. Requiere <b>hebra molde</b> y <b>ATP</b> (respuesta aceptada).</td></tr>
@@ -1290,7 +1290,7 @@ const ROM=['I','II','III','IV','V','VI'];
 const L4='abcdefghijkl'.split('');
 const LEN={corto:{mc:6,fill:8,par:6,parp:10,cas:1},normal:{mc:10,fill:15,par:8,parp:15,cas:1},largo:{mc:16,fill:24,par:10,parp:25,cas:2}};
 const TYPES=[['mc','Selección única'],['fill','Completar espacios'],['par','Pareo'],['parp','Pareo con códigos'],['img','Análisis de imágenes'],['cas','Desarrollo'],['img2','Imágenes: procesos 1 y 2']];
-const PRESETS=[['parcial','Como el parcial #2 (80 pts)',['fill','parp','cas','img2']],['prof','Como el bimestral',['mc','fill','img','cas']],['mc','Solo selección única',['mc']],['fill','Solo completar',['fill']],['par','Solo pareo',['par']],['some','Combinar algunos',null],['all','Combinar todos',['mc','fill','par','parp','img','cas','img2']]];
+const PRESETS=[['parcial','Examen 1 (80 pts)',['fill','parp','cas','img2']],['prof','Examen 2 (100 pts)',['mc','fill','img','cas']],['mc','Solo selección única',['mc']],['fill','Solo completar',['fill']],['par','Solo pareo',['par']],['some','Combinar algunos',null],['all','Combinar todos',['mc','fill','par','parp','img','cas','img2']]];
 let exCfg=Object.assign({preset:'parcial',some:['mc','par'],len:'normal'},store.get('rp-excfg2',{}));
 function cfgTypes(c){const p=PRESETS.find(x=>x[0]===c.preset)||PRESETS[0];return p[2]?p[2]:(c.some.length?TYPES.map(t=>t[0]).filter(t=>c.some.includes(t)):['mc'])}
 function planPts(c){const t=cfgTypes(c),prof=c.preset==='prof',parc=c.preset==='parcial',L=LEN[(prof||parc)?'normal':c.len];const o=[];
@@ -1331,7 +1331,7 @@ function newExam(){
 function renderExam(){
  const E=EX;let n=0;const P=k=>ROM[n++];
  let h=`<div class="paper" id="paperIn">
- <div class="ph"><h3>${E.parc?'Parcial #2 · Replicación del ADN':'Prueba de Biología · Replicación del ADN'}</h3><b>Vale ${fmt(E.total)} puntos</b></div>
+ <div class="ph"><h3>${E.parc?'Examen 1 · Replicación del ADN':E.prof?'Examen 2 · Replicación del ADN':'Prueba de Biología · Replicación del ADN'}</h3><b>Vale ${fmt(E.total)} puntos</b></div>
  <p class="ind">Indicaciones generales: lea cuidadosamente la prueba antes de contestar.${E.mc?' En la selección única, la letra que elija aparecerá en la casilla de la izquierda.':''}</p>`;
  if(E.mc)h+=`<p class="part">${P()} Parte. Selección única. Vale ${fmt(E.pts.mc)} puntos.</p>
  <p class="pi">Lea el enunciado y seleccione la respuesta correcta. Cada pregunta vale 2,5 puntos.</p>
@@ -1476,7 +1476,7 @@ function pracHome(){
   <div class="row"><button class="btn pri" type="button" id="startP">Empezar</button><button class="btn" type="button" id="startErr" ${nm?'':'disabled'}>Repasar mis errores (${nm})</button></div></div>
   <div class="card"><h2 style="font-size:1.15rem">Otras formas de practicar</h2><ul class="clean" style="margin-top:8px">
    <li><a href="#proceso">Proceso</a> → <b>Ponme a prueba</b>: te pide señalar partes en la animación, como la III Parte del examen.</li>
-   <li><a href="#examen">Examen</a>: simulacro con el formato del Parcial #2 del año pasado (80 puntos) o del bimestral.</li></ul></div>`;
+   <li><a href="#examen">Examen</a>: Examen 1 (80 puntos, formato del parcial del año pasado) o Examen 2 (100 puntos, formato del bimestral).</li></ul></div>`;
  $('#prac').querySelectorAll('[data-tp]').forEach(b=>b.onclick=()=>{const k=b.dataset.tp;ptSel.has(k)?ptSel.delete(k):ptSel.add(k);if(!ptSel.size)ptSel.add(k);pracHome()});
  $('#startP').onclick=()=>startPractice([...ptSel]);$('#startErr').onclick=()=>startPractice(['err']);
 }
