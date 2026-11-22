@@ -8,3 +8,4 @@ Cada carpeta se publica como un sitio separado en Vercel (un proyecto por tema, 
 |---|---|
 | Replicación del ADN | [`replicacion-del-adn/`](replicacion-del-adn/) |
 | Transcripción del ADN | [`transcripcion-del-adn/`](transcripcion-del-adn/) |
+| Traducción | [`traduccion-del-adn/`](traduccion-del-adn/) |
