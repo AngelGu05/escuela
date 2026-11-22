@@ -462,6 +462,38 @@ body.fslock{overflow:hidden}
 body[data-view]:not([data-view="proceso"]) .bgdeco{opacity:0}
 body[data-view]:not([data-view="proceso"]){background:radial-gradient(1200px 600px at 85% -15%,rgba(94,211,196,.04),transparent 60%),var(--bg)}
 
+/* ===== rediseño 2 ===== */
+/* nombre de la parte sobre la línea de tiempo */
+.partname{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:.88rem;min-width:0}
+.partname b{font:700 .92rem var(--display);color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.partname span{color:var(--muted);font-size:.8rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.parts button{height:28px;border-radius:7px}
+@media (max-width:620px){.parts button{height:34px}.partname span{display:none}}
+/* velocidad en botones pegados */
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:9px;padding:2px;gap:2px}
+.seg button{all:unset;cursor:pointer;font:700 .8rem var(--mono);padding:6px 9px;border-radius:7px;color:var(--muted)}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-checked="true"]{background:var(--surface2);color:var(--accent);box-shadow:inset 0 0 0 1px var(--line)}
+.seg button:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+/* viñeta suave en la animación */
+#dia{background:radial-gradient(ellipse 75% 70% at 50% 52%,transparent 55%,rgba(0,0,0,.42) 100%)}
+.stagecard.fs #dia{background:radial-gradient(ellipse 70% 70% at 50% 50%,transparent 55%,rgba(0,0,0,.5) 100%)}
+/* bolitas de aminoácidos más legibles */
+.bd{font-size:10.5px}
+/* Lo general en dos columnas sin huecos */
+.gen{display:block;columns:2 440px;column-gap:16px}
+.gen>.card{break-inside:avoid;margin:0 0 16px;display:block;width:100%}
+.gen>.wide{column-span:all}
+.gen td{padding:10px 8px}
+.gen tbody tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+/* hoja del examen */
+.paper{background:#141A23;border:1px solid var(--rule);border-radius:10px;box-shadow:0 30px 70px -35px rgba(0,0,0,.95),0 0 0 1px rgba(255,255,255,.03) inset}
+.paper .ph{border-bottom:2px solid var(--accent)}
+.paper .part{background:var(--accent-soft);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:9px 14px;margin:30px 0 10px}
+.paper .qrow,.paper .frow,.paper .pareo,.paper .t3{background:rgba(8,10,14,.35)}
+.paper .mini{background-color:var(--stage)}
+.spd{display:inline-flex;align-items:center;gap:8px}
+
 </style>
 
 </head>
@@ -497,6 +529,7 @@ body[data-view]:not([data-view="proceso"]){background:radial-gradient(1200px 600
           <button class="pbtn" id="nextPart" type="button" aria-label="Parte siguiente" title="Parte siguiente"><svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
           <div class="scrubwrap">
             <input type="range" id="scrub" min="0" max="110" step="0.05" value="0" aria-label="Línea de tiempo">
+            <div class="partname"><b id="partName"></b><span id="partNext"></span></div>
             <div class="parts" id="parts"></div>
           </div>
           <span class="time" id="timeLbl">0:00 / 1:50</span>
@@ -504,8 +537,8 @@ body[data-view]:not([data-view="proceso"]){background:radial-gradient(1200px 600
         <div class="opts2">
           <button class="btn tog" id="byPartsBtn" type="button" aria-pressed="true" title="Se detiene al final de cada parte">Pausar al final de cada parte</button>
           <button class="btn tog" id="labelsBtn" type="button" aria-pressed="true">Etiquetas</button>
-          <label class="muted" for="speedSel">Velocidad</label>
-          <select id="speedSel"><option value="0.5">0,5×</option><option value="0.75">0,75×</option><option value="1" selected>1×</option><option value="1.5">1,5×</option><option value="2">2×</option></select>
+          <span class="spd"><span class="muted" id="speedLbl">Velocidad</span><div class="seg" role="radiogroup" aria-labelledby="speedLbl" id="speedSeg"><button type="button" role="radio" data-sp="0.5" aria-checked="false">0,5×</button><button type="button" role="radio" data-sp="1" aria-checked="true">1×</button><button type="button" role="radio" data-sp="1.5" aria-checked="false">1,5×</button><button type="button" role="radio" data-sp="2" aria-checked="false">2×</button></div></span>
+          <select id="speedSel" hidden aria-hidden="true" tabindex="-1"><option value="0.5">0,5×</option><option value="0.75">0,75×</option><option value="1" selected>1×</option><option value="1.5">1,5×</option><option value="2">2×</option></select>
           <span class="sp"></span>
           <button class="btn" id="quizBtn" type="button">Ponme a prueba</button>
         </div>
@@ -535,21 +568,6 @@ body[data-view]:not([data-view="proceso"]){background:radial-gradient(1200px 600
         <span class="m">Proteína</span>
       </div>
       <p class="muted">Es un proceso complejo: participan de forma ordenada <b>más de 100 macromoléculas</b>, porque hay que unir <b>20 aminoácidos diferentes</b> en el orden exacto que indica el ARNm.</p>
-    </div>
-
-    <div class="card">
-      <h2>Dónde ocurre y quién participa</h2>
-      <p>En el <b>citoplasma</b>, en los <b>ribosomas</b>. Los ribosomas pueden estar <b>libres</b> en el citoplasma o unidos al <b>retículo endoplasmático rugoso (RER)</b>.</p>
-      <div class="tbl"><table>
-        <thead><tr><th>Molécula</th><th>Qué hace</th></tr></thead>
-        <tbody>
-          <tr><td><b>ARNm</b></td><td>Lleva los codones: el "mensaje" con el orden de los aminoácidos.</td></tr>
-          <tr><td><b>ARNt</b></td><td>Trae cada aminoácido y reconoce el codón con su anticodón.</td></tr>
-          <tr><td><b>Ribosoma</b> (ARNr + proteínas)</td><td>Lee el ARNm y une los aminoácidos. Tiene subunidad menor y mayor, y sitios A, P y E.</td></tr>
-          <tr><td><b>Aminoacil-ARNt sintetasa</b></td><td>Une cada aminoácido a su ARNt (con ATP).</td></tr>
-          <tr><td><b>Factores</b> de iniciación, elongación y liberación</td><td>Proteínas que ayudan en cada etapa.</td></tr>
-          <tr><td><b>Energía</b> (ATP)</td><td>Se gasta al cargar el ARNt y al mover el ribosoma.</td></tr>
-        </tbody></table></div>
     </div>
 
     <div class="card">
@@ -585,6 +603,32 @@ body[data-view]:not([data-view="proceso"]){background:radial-gradient(1200px 600
       <p>Es <b>monocatenario</b> (una sola cadena plegada). En el <b>extremo 3′</b> lleva el aminoácido y en el lado opuesto, en un <b>asa</b>, el anticodón. La <b>aminoacil-ARNt sintetasa</b> lo "carga": ARNt + aminoácido → ARNt cargado.</p>
     </div>
 
+    <div class="card">
+      <h2>Dónde ocurre y quién participa</h2>
+      <p>En el <b>citoplasma</b>, en los <b>ribosomas</b>. Los ribosomas pueden estar <b>libres</b> en el citoplasma o unidos al <b>retículo endoplasmático rugoso (RER)</b>.</p>
+      <div class="tbl"><table>
+        <thead><tr><th>Molécula</th><th>Qué hace</th></tr></thead>
+        <tbody>
+          <tr><td><b>ARNm</b></td><td>Lleva los codones: el "mensaje" con el orden de los aminoácidos.</td></tr>
+          <tr><td><b>ARNt</b></td><td>Trae cada aminoácido y reconoce el codón con su anticodón.</td></tr>
+          <tr><td><b>Ribosoma</b> (ARNr + proteínas)</td><td>Lee el ARNm y une los aminoácidos. Tiene subunidad menor y mayor, y sitios A, P y E.</td></tr>
+          <tr><td><b>Aminoacil-ARNt sintetasa</b></td><td>Une cada aminoácido a su ARNt (con ATP).</td></tr>
+          <tr><td><b>Factores</b> de iniciación, elongación y liberación</td><td>Proteínas que ayudan en cada etapa.</td></tr>
+          <tr><td><b>Energía</b> (ATP)</td><td>Se gasta al cargar el ARNt y al mover el ribosoma.</td></tr>
+        </tbody></table></div>
+    </div>
+
+    <div class="card">
+      <h2>Las tres etapas</h2>
+      <div class="tbl"><table>
+        <thead><tr><th>Etapa</th><th>Qué pasa</th></tr></thead>
+        <tbody>
+          <tr><td><b>Iniciación</b></td><td>La subunidad menor se une al cap 5′ (factores de iniciación) y busca el AUG. Llega el Met-ARNt (anticodón UAC) y la subunidad mayor. Met en el sitio P.</td></tr>
+          <tr><td><b>Elongación</b></td><td>Entra un aminoacil-ARNt al sitio A (factor de elongación) → enlace peptídico (peptidil transferasa) → translocación (translocasa); el ARNt vacío sale por E. Se repite.</td></tr>
+          <tr><td><b>Terminación</b></td><td>Codón de parada en el sitio A → entra el factor de liberación → se libera la proteína y se separa el complejo.</td></tr>
+        </tbody></table></div>
+    </div>
+
     <div class="card wide">
       <h2>Tabla del código genético</h2>
       <p class="muted">Toca un codón para ver su aminoácido. Fila = primera base, columna = segunda base, y dentro de cada casilla, la tercera base.</p>
@@ -602,17 +646,6 @@ body[data-view]:not([data-view="proceso"]){background:radial-gradient(1200px 600
           <button class="btn pri" type="button" id="trGo">Traducir</button></div>
         <div class="trout" id="trOut"></div>
       </div>
-    </div>
-
-    <div class="card">
-      <h2>Las tres etapas</h2>
-      <div class="tbl"><table>
-        <thead><tr><th>Etapa</th><th>Qué pasa</th></tr></thead>
-        <tbody>
-          <tr><td><b>Iniciación</b></td><td>La subunidad menor se une al cap 5′ (factores de iniciación) y busca el AUG. Llega el Met-ARNt (anticodón UAC) y la subunidad mayor. Met en el sitio P.</td></tr>
-          <tr><td><b>Elongación</b></td><td>Entra un aminoacil-ARNt al sitio A (factor de elongación) → enlace peptídico (peptidil transferasa) → translocación (translocasa); el ARNt vacío sale por E. Se repite.</td></tr>
-          <tr><td><b>Terminación</b></td><td>Codón de parada en el sitio A → entra el factor de liberación → se libera la proteína y se separa el complejo.</td></tr>
-        </tbody></table></div>
     </div>
 
     <div class="card">
@@ -900,7 +933,7 @@ function trnaPos(j,T,sh){
 const CHAIN_PATH=(function(){const P=[[0,0],[0,-34],[-14,-62],[-40,-84],[-74,-96],[-108,-92],[-140,-102],[-168,-122],[-196,-140],[-228,-148],[-260,-140],[-290,-150],[-318,-170],[-340,-190]];
  const cum=[0];for(let i=1;i<P.length;i++)cum.push(cum[i-1]+Math.hypot(P[i][0]-P[i-1][0],P[i][1]-P[i-1][1]));
  return s=>{let i=1;while(i<P.length-1&&cum[i]<s)i++;const f=clamp((s-cum[i-1])/(cum[i]-cum[i-1]));return [lerp(P[i-1][0],P[i][0],f),lerp(P[i-1][1],P[i][1],f)]}})();
-const FOLD=Array.from({length:12},(_,i)=>{const a=i*2.39996,r=10*Math.sqrt(i+.6);return [270+r*Math.cos(a)*1.15,112+r*Math.sin(a)]});
+const FOLD=Array.from({length:12},(_,i)=>{const a=i*2.39996,r=11.5*Math.sqrt(i+.6);return [270+r*Math.cos(a)*1.15,112+r*Math.sin(a)]});
 function focusX(T){return T<10?330:500}
 
 /* ---------- escena en el tiempo T ---------- */
@@ -923,7 +956,7 @@ function renderAt(T,opt){
   lab.push(id?H(id,body):body);}
  const chOp=(a,b)=>Math.min(lin(T,a,a+.6),1-lin(T,b-.6,b));
  const blob=(cx,cy,rx,ry,fill,edge,extra='')=>`<ellipse cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" rx="${rx}" ry="${ry}" ${st(fill,edge,2,extra)}/>`;
- const bead=(x,y,name,r=11)=>`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" ${st(AACOL[name]||'var(--aa)','var(--stage)',2)}/><text x="${x.toFixed(1)}" y="${(y+3.5).toFixed(1)}" text-anchor="middle" class="bd">${name}</text>`;
+ const bead=(x,y,name,r=12.5)=>`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" ${st(AACOL[name]||'var(--aa)','var(--stage)',2)}/><text x="${x.toFixed(1)}" y="${(y+3.5).toFixed(1)}" text-anchor="middle" class="bd">${name}</text>`;
  function trna(x,dy,ant,opts={}){ /* dibujo de un ARNt: anticodón abajo (y≈352), aminoácido arriba (y≈236) */
   const y=v=>(v+dy).toFixed(1),op=opts.op==null?1:opts.op;if(op<=0.02)return;
   const body=`<path d="M${x-7},${y(342)} L${x-7},${y(262)} M${x+7},${y(342)} L${x+7},${y(262)}" ${st(null,'var(--trna)',5,'stroke-linecap:round')}/>
@@ -1054,11 +1087,11 @@ function renderAt(T,opt){
   if(T>=30.5){
    let anc,beads,s0=0,fold=0;
    const top=j=>TR[j]?[TR[j].x,236+TR[j].dy]:null;
-   if(T<84){if(bk){const a=top(bk-1),b=top(bk);anc=a&&b?[lerp(a[0],b[0],bp),lerp(a[1],b[1],bp)]:(b||a);beads=AAN.slice(0,bk).reverse();s0=22*bp}
+   if(T<84){if(bk){const a=top(bk-1),b=top(bk);anc=a&&b?[lerp(a[0],b[0],bp),lerp(a[1],b[1],bp)]:(b||a);beads=AAN.slice(0,bk).reverse();s0=25*bp}
     else{anc=top(nb);beads=AAN.slice(0,nb+1).reverse()}}
    else{const a=[cxOf(14,sh),236];const p=prog(T,84,87.5);anc=[lerp(a[0],380,p),lerp(a[1],160,p)];beads=AAN.slice().reverse();fold=prog(T,87.5,92.5)}
    if(anc&&beads){
-    let g='',bond='';const pos=beads.map((nm,i)=>{const q=CHAIN_PATH(s0+i*22);let x=anc[0]+q[0],y=anc[1]+q[1];if(fold>0){const f=FOLD[beads.length-1-i];x=lerp(x,f[0],fold);y=lerp(y,f[1],fold)}return [x,y]});
+    let g='',bond='';const pos=beads.map((nm,i)=>{const q=CHAIN_PATH(s0+i*25);let x=anc[0]+q[0],y=anc[1]+q[1];if(fold>0){const f=FOLD[beads.length-1-i];x=lerp(x,f[0],fold);y=lerp(y,f[1],fold)}return [x,y]});
     for(let i=pos.length-1;i>0;i--)g+=`<path d="M${pos[i][0].toFixed(1)},${pos[i][1].toFixed(1)} L${pos[i-1][0].toFixed(1)},${pos[i-1][1].toFixed(1)}" ${st(null,'var(--aa)',3)}/>`;
     const cop=T<84?(TR[nb]?TR[nb].op:1):1;
     pos.forEach((p,i)=>{g+=bead(p[0],p[1],beads[i])});
@@ -1722,6 +1755,17 @@ function pAfter(q,ok){
 
 /* ---------- fondo animado solo en Proceso ---------- */
 (function(){const set=()=>{const h=location.hash.slice(1);document.body.dataset.view=['leer','general','examen','practica'].includes(h)?h:'proceso'};set();addEventListener('hashchange',set);})();
+
+/* ---------- nombre de la parte actual y velocidad por botones ---------- */
+(function(){
+ let last=-1;const od=draw;
+ draw=function(){od();const c=chAt(T);if(c!==last){last=c;$('#partName').textContent=c+' · '+CHN[c];$('#partNext').textContent=c<CHN.length-1?'Sigue: '+CHN[c+1]:'Última parte';}};
+ const seg=$('#speedSeg');
+ seg.addEventListener('click',e=>{const b=e.target.closest('[data-sp]');if(!b)return;const s=$('#speedSel');s.value=b.dataset.sp;s.dispatchEvent(new Event('change'));
+  seg.querySelectorAll('[data-sp]').forEach(x=>x.setAttribute('aria-checked',x===b))});
+ seg.addEventListener('keydown',e=>{if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;e.preventDefault();e.stopPropagation();const bs=[...seg.querySelectorAll('[data-sp]')];let i=bs.findIndex(x=>x.getAttribute('aria-checked')==='true');i=Math.max(0,Math.min(bs.length-1,i+(e.key==='ArrowRight'?1:-1)));bs[i].click();bs[i].focus()});
+ draw();
+})();
 
 let leerDone=false,leerObs=null;
 function compCard(id,i){const d=DEF[id];const role=i!=null&&d.r&&d.r[i];
