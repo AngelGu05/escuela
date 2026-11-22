@@ -459,8 +459,6 @@ body.fslock{overflow:hidden}
 #dia .inset .il,.lfig .inset .il{font-family:var(--mono)}
 /* fondo animado solo en Proceso; en el resto, fondo quieto y más oscuro */
 .bgdeco{transition:opacity .4s}
-body[data-view]:not([data-view="proceso"]) .bgdeco{opacity:0}
-body[data-view]:not([data-view="proceso"]){background:radial-gradient(1200px 600px at 85% -15%,rgba(94,211,196,.04),transparent 60%),var(--bg)}
 
 /* ===== rediseño 2 ===== */
 /* nombre de la parte sobre la línea de tiempo */
@@ -493,6 +491,17 @@ body[data-view]:not([data-view="proceso"]){background:radial-gradient(1200px 600
 .paper .qrow,.paper .frow,.paper .pareo,.paper .t3{background:rgba(8,10,14,.35)}
 .paper .mini{background-color:var(--stage)}
 .spd{display:inline-flex;align-items:center;gap:8px}
+
+/* ===== fondo aurora y acciones en tarjetas ===== */
+body{background:var(--bg)}
+.bgdeco{filter:blur(2px);opacity:1}
+.card{background:rgba(12,15,20,.86);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.cacts{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.btn.sm{padding:6px 12px;font-size:.88rem}
+.btn.ghost{background:transparent;border-color:var(--rule)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.cacts .btn:not(.ghost){background:var(--accent-soft);border-color:rgba(94,211,196,.4);color:var(--accent)}
+.cacts .btn:not(.ghost):hover{background:var(--accent);color:#04201C}
 
 </style>
 
@@ -843,6 +852,7 @@ const CH=[[0,10],[10,22],[22,34],[34,42.5],[42.5,50],[50,58],[58,64],[64,80],[80
 const TOTAL=110;
 const QT=[4.2,19.5,30.8,40,49.3,54.3,61.6,66.8,85.5,105.5];
 const CHN=['Del ADN al ARNm','Código genético','Carga del ARNt','Inicio: subunidad menor','Inicio: ribosoma completo','Entrada al sitio A','Enlace peptídico','Translocación','Terminación','Marco y mutaciones'];
+const PTP=['gen','cod','arnt','ini','ini','elo','elo','elo','ter','mut'];
 const STAGE=['Núcleo → citoplasma','Citoplasma · ARNm','Citoplasma · carga del ARNt','Citoplasma · iniciación','Citoplasma · iniciación','Ribosoma · elongación','Ribosoma · elongación','Ribosoma · elongación','Ribosoma · terminación','Marco de lectura'];
 const STEPS=[
  {t:'Del ADN al ARN mensajero',s:'Antes de traducir',src:'vp',who:['adn','arnpol','arnm','cap','envoltura','poro'],
@@ -1247,7 +1257,7 @@ function renderPanel(){
  }
  $('#stepInfo').className='card';
  $('#stepInfo').innerHTML=`<div class="meta"><span>Parte ${c} de 9 · ${S.s}</span>${pills(S.src)}</div><h2>${S.t}</h2>${S.h}
-  <div class="who"><span class="lbl">Participan (toca para ver qué hacen)</span>${S.who.map(chip).join('')}</div>`;
+  <div class="who"><span class="lbl">Participan (toca para ver qué hacen)</span>${S.who.map(chip).join('')}</div>${stepActs(c)}`;
  if(!sel){$('#defCard').innerHTML='';return;}
  const d=DEF[sel],role=d.r&&d.r[c];
  $('#defCard').innerHTML=`<div class="card def" role="region" aria-label="Definición"><button class="close" type="button" data-close aria-label="Cerrar">×</button>
@@ -1708,30 +1718,19 @@ function pAfter(q,ok){
  $('#trGo').onclick=tr;$('#trType').onchange=tr;tr();
 })();
 
-/* ---------- fondo animado: codones flotando y ribosomas lejanos ---------- */
+/* ---------- fondo: aurora suave ---------- */
 (function(){const c=$('#bgc');if(!c||!c.getContext)return;const ctx=c.getContext('2d');
  const rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
- let W=0,H=0;function size(){const d=Math.min(2,window.devicePixelRatio||1);W=innerWidth;H=innerHeight;c.width=Math.round(W*d);c.height=Math.round(H*d);ctx.setTransform(d,0,0,d,0,0);}
- size();addEventListener('resize',size);
- let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
- const words=Object.keys(CODE);
- const cods=Array.from({length:34},()=>({x:rnd(),y:rnd(),w:words[Math.floor(rnd()*64)],v:.004+rnd()*.008,a:.05+rnd()*.09,sz:11+rnd()*6,ph:rnd()*6.28}));
- const ribs=Array.from({length:6},()=>({x:rnd(),y:rnd(),s:.6+rnd()*.9,v:.002+rnd()*.004,ph:rnd()*6.28}));
- const blobs=[{x:.82,y:.12,r:.42,col:[94,211,196]},{x:.12,y:.88,r:.4,col:[242,135,91]}];
- function paint(t){
-  ctx.clearRect(0,0,W,H);
-  blobs.forEach((b,i)=>{const x=(b.x+.03*Math.sin(t*.05+i))*W,y=(b.y+.03*Math.cos(t*.04+i))*H,r=b.r*Math.max(W,H);
-   const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${b.col},.07)`);g.addColorStop(1,`rgba(${b.col},0)`);ctx.fillStyle=g;ctx.fillRect(0,0,W,H);});
-  ribs.forEach(r=>{const x=((r.x+t*r.v)%1.2-.1)*W,y=(r.y+.02*Math.sin(t*.3+r.ph))*H,s=r.s*28;
-   ctx.strokeStyle='rgba(94,211,196,.10)';ctx.lineWidth=1.2;ctx.beginPath();ctx.ellipse(x,y-s*.35,s,s*.62,0,0,6.283);ctx.stroke();
-   ctx.beginPath();ctx.ellipse(x,y+s*.5,s*.86,s*.32,0,0,6.283);ctx.stroke();
-   ctx.strokeStyle='rgba(242,135,91,.10)';ctx.beginPath();ctx.moveTo(x-s*2.2,y+s*.12);ctx.lineTo(x+s*2.2,y+s*.12);ctx.stroke();});
-  ctx.textAlign='center';
-  cods.forEach(p=>{const y=((p.y-t*p.v)%1+1)%1*H,x=(p.x+.01*Math.sin(t*.4+p.ph))*W;ctx.font=`600 ${p.sz}px "JetBrains Mono",monospace`;
-   ctx.fillStyle=`rgba(200,214,230,${(p.a*(.7+.3*Math.sin(t+p.ph))).toFixed(3)})`;ctx.fillText(p.w,x,y);});
- }
- if(rm){paint(0);addEventListener('resize',()=>paint(0));return}
- let last=0;function loop(ts){if(ts-last>40&&document.body.dataset.view==='proceso'){last=ts;paint(ts/1000)}requestAnimationFrame(loop)}requestAnimationFrame(loop);
+ const S=6;let W=0,H=0;function size(){W=Math.ceil(innerWidth/S);H=Math.ceil(innerHeight/S);c.width=W;c.height=H;}
+ size();addEventListener('resize',()=>{size();if(rm)paint(0)});
+ const B=[{x:.18,y:.12,r:.55,c:[94,211,196],a:.20,sx:.07,sy:.05,p:0},{x:.86,y:.22,r:.48,c:[106,168,242],a:.13,sx:.05,sy:.07,p:1.7},
+  {x:.78,y:.92,r:.55,c:[242,135,91],a:.15,sx:.06,sy:.04,p:3.1},{x:.12,y:.86,r:.42,c:[156,123,234],a:.11,sx:.05,sy:.06,p:4.4}];
+ function paint(t){ctx.clearRect(0,0,W,H);ctx.globalCompositeOperation='lighter';
+  B.forEach(b=>{const x=(b.x+b.sx*Math.sin(t*.06+b.p))*W,y=(b.y+b.sy*Math.cos(t*.05+b.p))*H,r=b.r*Math.max(W,H)*(1+.06*Math.sin(t*.09+b.p));
+   const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgba(${b.c},${b.a})`);g.addColorStop(.55,`rgba(${b.c},${(b.a*.35).toFixed(3)})`);g.addColorStop(1,`rgba(${b.c},0)`);ctx.fillStyle=g;ctx.fillRect(0,0,W,H);});
+  ctx.globalCompositeOperation='source-over';}
+ if(rm){paint(0);return}
+ let last=0;function loop(ts){if(ts-last>66){last=ts;paint(ts/1000)}requestAnimationFrame(loop)}requestAnimationFrame(loop);
 })();
 
 /* ---------- pantalla completa de la animación ---------- */
@@ -1753,8 +1752,6 @@ function pAfter(q,ok){
  $('#fsDef').addEventListener('click',e=>{if(e.target.closest('[data-close]')){sel=null;draw();renderPanel()}});
 })();
 
-/* ---------- fondo animado solo en Proceso ---------- */
-(function(){const set=()=>{const h=location.hash.slice(1);document.body.dataset.view=['leer','general','examen','practica'].includes(h)?h:'proceso'};set();addEventListener('hashchange',set);})();
 
 /* ---------- nombre de la parte actual y velocidad por botones ---------- */
 (function(){
@@ -1765,6 +1762,19 @@ function pAfter(q,ok){
   seg.querySelectorAll('[data-sp]').forEach(x=>x.setAttribute('aria-checked',x===b))});
  seg.addEventListener('keydown',e=>{if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;e.preventDefault();e.stopPropagation();const bs=[...seg.querySelectorAll('[data-sp]')];let i=bs.findIndex(x=>x.getAttribute('aria-checked')==='true');i=Math.max(0,Math.min(bs.length-1,i+(e.key==='ArrowRight'?1:-1)));bs[i].click();bs[i].focus()});
  draw();
+})();
+
+/* ---------- botones de acción en las tarjetas ---------- */
+function stepActs(c){return `<div class="cacts"><button class="btn sm" type="button" data-prac="${PTP[c]}">✎ Practicar este tema</button><button class="btn sm ghost" type="button" data-leer="${c}">Leer completo →</button></div>`}
+(function(){
+ const GEN=[[1,'gen'],[1,'cod'],[4,'arnt'],[3,'gen'],[3,'ini,elo,ter'],[1,'cod'],[9,'mut'],[9,'mut'],[9,'mut'],[null,'cod,arnt,ini,elo,ter,mut,gen']];
+ $$('#v-general .gen>.card').forEach((card,i)=>{const m=GEN[i];if(!m)return;
+  card.insertAdjacentHTML('beforeend',`<div class="cacts">${m[0]!=null?`<button class="btn sm" type="button" data-anim="${m[0]}">▶ Ver en la animación</button>`:''}<button class="btn sm ghost" type="button" data-prac="${m[1]}">✎ Practicar este tema</button></div>`)});
+ document.addEventListener('click',e=>{
+  const pr=e.target.closest('[data-prac]');if(pr){const tps=pr.dataset.prac.split(',');ptSel=new Set(tps);location.hash='practica';setTimeout(()=>{startPractice(tps);window.scrollTo({top:0,behavior:'smooth'})},0);return}
+  const an=e.target.closest('[data-anim]');if(an){const i=+an.dataset.anim;location.hash='proceso';setTimeout(()=>{window.scrollTo({top:0});jumpCh(i,true)},0);return}
+  const le=e.target.closest('[data-leer]');if(le){const i=le.dataset.leer;location.hash='leer';setTimeout(()=>{renderLeer();const el=document.getElementById('lp'+i);if(el)el.scrollIntoView({block:'start'})},60);return}
+ });
 })();
 
 let leerDone=false,leerObs=null;
@@ -1778,7 +1788,7 @@ function renderLeer(){
   ${S.h}
   <div class="who"><span class="lbl">Componentes de esta parte</span></div>
   <div class="comps">${S.who.map(id=>compCard(id,i)).join('')}</div>
-  <div class="row" style="margin-top:14px"><button class="btn pri" type="button" data-play="${i}">▶ Ver esta parte en la animación</button></div></article>`).join('');
+  <div class="row" style="margin-top:14px"><button class="btn pri" type="button" data-play="${i}">▶ Ver esta parte en la animación</button><button class="btn ghost" type="button" data-prac="${PTP[i]}">✎ Practicar este tema</button></div></article>`).join('');
  const gl=Object.keys(DEF).sort((a,b)=>DEF[a].n.localeCompare(DEF[b].n,'es')).map(id=>{const d=DEF[id];const where=STEPS.map((S,i)=>S.who.includes(id)?i:-1).filter(i=>i>=0);
   return `<div class="comp" style="--c:var(${d.c||'--ink'})"><h4>${esc(d.n)}</h4>${pills(d.src)}<div class="lab2 q">Qué es</div><p>${d.w}</p><div class="lab2 h">Qué hace</div><p>${d.h}</p>${d.warn?`<p class="note">${d.warn}</p>`:''}${where.length?`<p class="muted" style="margin-top:8px">Aparece en: ${where.map(i=>`<a href="#lp${i}" data-jump="lp${i}">${i}. ${CHN[i]}</a>`).join(' · ')}</p>`:''}</div>`}).join('');
  $('#leer').innerHTML=`<nav class="toc" aria-label="Índice"><span class="tt meta">Índice</span><a href="#lp-res" data-jump="lp-res"><b>★</b>Resumen</a>${STEPS.map((S,i)=>`<a href="#lp${i}" data-jump="lp${i}"><b>${i}</b>${CHN[i]}</a>`).join('')}<a href="#lp-gl" data-jump="lp-gl"><b>A–Z</b>Glosario</a></nav>
