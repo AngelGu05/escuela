@@ -401,12 +401,14 @@ nav.tabs a.on{color:var(--ink);background:var(--surface2);border-color:var(--lin
 .stagecard.fs .capbar{min-height:0}
 .stagecard.fs .capbar p{font-size:1.15rem}
 body.fslock{overflow:hidden}
-.fsdef{position:absolute;top:calc(env(safe-area-inset-top,0px) + 46px);right:calc(env(safe-area-inset-right,0px) + 14px);z-index:3;width:min(360px,calc(100% - 28px));max-height:55%;overflow:auto}
+.fsdef{position:absolute;top:calc(env(safe-area-inset-top,0px) + 58px);right:calc(env(safe-area-inset-right,0px) + 14px);z-index:3;width:min(360px,calc(100% - 28px));max-height:55%;overflow:auto}
 .fsdef .card{background:rgba(15,19,25,.96)}
 #fsBtn svg{flex:none}
 @media (max-width:520px){#fsBtn span{display:none}.stagecard.fs .opts2 .muted,.stagecard.fs #speedSel{display:none}}
 @media (max-height:540px){
- .stagecard.fs .stagehead{display:none}
+ .stagecard.fs .stagehead{position:absolute;top:0;left:0;right:0;z-index:4;padding:8px;justify-content:flex-start;pointer-events:none}
+ .stagecard.fs .stagehead .t,.stagecard.fs .stagehead .hint{display:none}
+ .stagecard.fs #fsBtn{pointer-events:auto}
  .stagecard.fs .capbar{padding:5px 12px;gap:8px}.stagecard.fs .capbar p{font-size:.88rem;line-height:1.3}.stagecard.fs .capbar .cn{margin-top:0}
  .stagecard.fs .player{grid-template-columns:minmax(0,1fr) auto;align-items:center;padding:6px 12px;gap:8px}
  .stagecard.fs .parts{display:none}
@@ -417,6 +419,48 @@ body.fslock{overflow:hidden}
  .fsdef{top:calc(env(safe-area-inset-top,0px) + 8px);width:min(300px,calc(100% - 28px));max-height:calc(100% - 110px);font-size:.85rem}
  .fsdef .card{padding:12px}.fsdef h3{font-size:1.05rem}
 }
+
+/* ===== rediseño: jerarquía de botones, niveles de tarjetas, fondo ===== */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.stagehead .hint{margin-left:auto}
+.iconbtn{width:38px;height:38px;flex:none;display:grid;place-items:center;border-radius:10px;border:1px solid var(--line);background:rgba(11,14,19,.8);color:var(--ink);cursor:pointer;transition:border-color .15s,background .15s}
+.iconbtn:hover{border-color:var(--accent);background:var(--accent-soft)}
+.iconbtn[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
+/* interruptores en lugar de botones rellenos */
+.btn.tog,.btn.tog[aria-pressed="true"]{background:transparent;border-color:transparent;color:var(--muted);padding:6px 8px;gap:10px;font-weight:600}
+.btn.tog:hover{border-color:transparent;color:var(--ink)}
+.btn.tog::before{content:"";flex:none;width:34px;height:20px;border-radius:10px;border:1px solid var(--rule);
+  background:radial-gradient(circle at 10px 50%,var(--muted) 0 6px,transparent 6.5px),var(--surface2);transition:background .15s,border-color .15s}
+.btn.tog[aria-pressed="true"]{color:var(--ink)}
+.btn.tog[aria-pressed="true"]::before{border-color:var(--accent);background:radial-gradient(circle at 24px 50%,#04201C 0 6px,transparent 6.5px),var(--accent)}
+.btn.tog:focus-visible::before{outline:2px solid var(--focus);outline-offset:2px}
+#quizBtn{background:transparent;border-color:var(--rule)}
+#quizBtn:hover{border-color:var(--accent);color:var(--accent)}
+.opts2 select{background:transparent;border-color:var(--rule)}
+/* niveles de tarjetas */
+.card{background:rgba(12,15,20,.92);border-color:rgba(35,43,55,.9);box-shadow:0 1px 0 rgba(255,255,255,.03) inset}
+.comp{background:var(--surface2);border-color:var(--line);transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease}
+.comp:hover{transform:translateY(-2px);border-color:var(--rule);box-shadow:0 10px 24px -14px rgba(0,0,0,.9)}
+.chip{transition:border-color .15s,background .15s,transform .15s}
+.chip:hover{transform:translateY(-1px)}
+.pq .ob button{transition:border-color .15s,transform .15s}
+.pq .ob button:hover:not(:disabled){transform:translateY(-1px)}
+/* avisos con fondo suave */
+.note,.panel .note,.lpart .note{background:rgba(244,194,91,.08);border-left:3px solid var(--aa);border-radius:0 8px 8px 0;padding:9px 12px;color:var(--ink)}
+.ppt{background:rgba(94,211,196,.08);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:9px 12px}
+.def .warn{background:rgba(244,194,91,.08);border-radius:0 8px 8px 0;padding:9px 12px}
+.analog{background:rgba(94,211,196,.06);border-color:rgba(94,211,196,.25)}
+/* recuadros de la animación más legibles */
+.inset rect{fill:rgba(12,15,20,.95);stroke:var(--rule)}
+.inset .ibar{fill:var(--accent);stroke:none}
+.inset .it{font:700 15px var(--display);fill:var(--accent)}
+.inset .il{font:500 14.5px var(--mono);fill:var(--ink)}
+#dia .inset .it,.lfig .inset .it{font-family:var(--display)}
+#dia .inset .il,.lfig .inset .il{font-family:var(--mono)}
+/* fondo animado solo en Proceso; en el resto, fondo quieto y más oscuro */
+.bgdeco{transition:opacity .4s}
+body[data-view]:not([data-view="proceso"]) .bgdeco{opacity:0}
+body[data-view]:not([data-view="proceso"]){background:radial-gradient(1200px 600px at 85% -15%,rgba(94,211,196,.04),transparent 60%),var(--bg)}
 
 </style>
 
@@ -442,7 +486,7 @@ body.fslock{overflow:hidden}
 <section id="v-proceso">
   <div class="proc">
     <div class="stagecard">
-      <div class="stagehead"><span class="t" id="stageTag">Núcleo → citoplasma</span><span class="hint" id="dragHint">Toca cualquier parte del dibujo para ver qué es y qué hace</span></div>
+      <div class="stagehead"><span class="t" id="stageTag">Núcleo → citoplasma</span><span class="hint" id="dragHint">Toca cualquier parte del dibujo para ver qué es y qué hace</span><button class="iconbtn" id="fsBtn" type="button" aria-pressed="false" aria-label="Pantalla completa" title="Pantalla completa (tecla F)"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" style="fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"/></svg><span class="sr">Pantalla completa</span></button></div>
       <div class="scroller" id="scroller"><svg id="dia" viewBox="0 0 1000 500" role="img" aria-label="Animación de la traducción"></svg></div>
       <div class="fsdef" id="fsDef" hidden></div>
       <div class="capbar" aria-live="off"><span class="cn" id="capNum">0</span><p id="caption"></p></div>
@@ -464,7 +508,6 @@ body.fslock{overflow:hidden}
           <select id="speedSel"><option value="0.5">0,5×</option><option value="0.75">0,75×</option><option value="1" selected>1×</option><option value="1.5">1,5×</option><option value="2">2×</option></select>
           <span class="sp"></span>
           <button class="btn" id="quizBtn" type="button">Ponme a prueba</button>
-          <button class="btn" id="fsBtn" type="button" aria-pressed="false" title="Pantalla completa (tecla F)"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" style="fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"/></svg><span>Pantalla completa</span></button>
         </div>
       </div>
     </div>
@@ -875,8 +918,8 @@ function renderAt(T,opt){
   lab.push(H(id,`${leader(x,y,lx,ly)}<text x="${x}" y="${y}" text-anchor="${anchor}" class="${cls}">${txt}</text>`,op<1?` style="opacity:${op.toFixed(2)}"`:''));
  }
  const A=(x,y,txt,anchor='middle',cls='an',always=false,op=1)=>{if(!always&&(o.nums||!o.labels))return;if(op<=0.05)return;lab.push(`<text x="${x}" y="${y}" text-anchor="${anchor}" class="${cls}"${op<1?` style="opacity:${op.toFixed(2)}"`:''}>${txt}</text>`)};
- function inset(title,lines,id,op,x0=686,y0=14){if(o.nums||!o.labels||op<=0.05)return;
-  const body=`<g class="inset" style="opacity:${op.toFixed(2)}"><rect x="${x0}" y="${y0}" width="300" height="${30+lines.length*23}" rx="10"/><text x="${x0+14}" y="${y0+22}" class="it">${title}</text>${lines.map((l,i)=>`<text x="${x0+14}" y="${y0+46+i*23}" class="il">${l}</text>`).join('')}</g>`;
+ function inset(title,lines,id,op,x0=666,y0=14){if(o.nums||!o.labels||op<=0.05)return;
+  const body=`<g class="inset" style="opacity:${op.toFixed(2)}"><rect x="${x0}" y="${y0}" width="320" height="${36+lines.length*25}" rx="12"/><rect x="${x0}" y="${y0}" width="4" height="${36+lines.length*25}" rx="2" class="ibar"/><text x="${x0+18}" y="${y0+25}" class="it">${title}</text>${lines.map((l,i)=>`<text x="${x0+18}" y="${y0+52+i*25}" class="il">${l}</text>`).join('')}</g>`;
   lab.push(id?H(id,body):body);}
  const chOp=(a,b)=>Math.min(lin(T,a,a+.6),1-lin(T,b-.6,b));
  const blob=(cx,cy,rx,ry,fill,edge,extra='')=>`<ellipse cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" rx="${rx}" ry="${ry}" ${st(fill,edge,2,extra)}/>`;
@@ -922,7 +965,7 @@ function renderAt(T,opt){
   L('adn',60,150,'ADN','middle',60,166);
   L('poro',560,212,'poro nuclear','start',482,238);
   L('envoltura',300,500-14,'envoltura nuclear','middle',300,486-32);
-  inset('Dogma central',['ADN → ARNm   transcripción','ARNm → proteína  traducción','el ADN no sale del núcleo'],null,chOp(0.5,9.5),686,362);
+  inset('Dogma central',['ADN → ARNm   transcripción','ARNm → proteína  traducción','el ADN no sale del núcleo'],null,chOp(0.5,9.5),666,352);
   out.push('</g>');
  }
 
@@ -1422,7 +1465,7 @@ function newExam(){
  const types=cfgTypes(exCfg),fx=FIXED[exCfg.preset],L=LEN[fx?'normal':exCfg.len];
  const E={types,graded:false};
  if(types.includes('mc'))E.mc=shuffle(MC).slice(0,L.mc).map(q=>({q,ord:shuffle(q.o.map((_,i)=>i))}));
- if(types.includes('fill')){const fl=[];let bl=0;for(const q of shuffle(FILL)){if(bl+q.parts.length>L.fill+1)continue;fl.push(q);bl+=q.parts.length;if(bl>=L.fill)break;}E.fl=fl;E.blanks=bl;E.ppb=fx&&fx.fill?fx.fill/bl:PTS.blank;}
+ if(types.includes('fill')){const fl=[];let bl=0;for(const q of shuffle(FILL)){if(bl+q.parts.length>L.fill+(fx?1:0))continue;fl.push(q);bl+=q.parts.length;if(bl>=L.fill)break;}E.fl=fl;E.blanks=bl;E.ppb=fx&&fx.fill?fx.fill/bl:PTS.blank;}
  if(types.includes('par')){E.par=pickPareo(fx&&fx.par||L.par);const terms=[...new Set(E.par.map(p=>p[0]))];
   const extra=shuffle([...new Set(PAREO.map(p=>p[0]))].filter(t=>!terms.includes(t))).slice(0,4);E.parB=shuffle([...terms,...extra]);}
  if(types.includes('img')){const sc=SCEN[Math.floor(Math.random()*SCEN.length)];E.sc=sc;E.ids=shuffle(sc.ids);E.nums={};E.ids.forEach((id,i)=>E.nums[id]=i+1);E.ab=ABS[Math.floor(Math.random()*ABS.length)];}
@@ -1655,13 +1698,13 @@ function pAfter(q,ok){
    ctx.fillStyle=`rgba(200,214,230,${(p.a*(.7+.3*Math.sin(t+p.ph))).toFixed(3)})`;ctx.fillText(p.w,x,y);});
  }
  if(rm){paint(0);addEventListener('resize',()=>paint(0));return}
- let last=0;function loop(ts){if(ts-last>40){last=ts;paint(ts/1000)}requestAnimationFrame(loop)}requestAnimationFrame(loop);
+ let last=0;function loop(ts){if(ts-last>40&&document.body.dataset.view==='proceso'){last=ts;paint(ts/1000)}requestAnimationFrame(loop)}requestAnimationFrame(loop);
 })();
 
 /* ---------- pantalla completa de la animación ---------- */
 (function(){
  const card=$('.stagecard'),btn=$('#fsBtn');let on=false;
- function sync(){btn.setAttribute('aria-pressed',on);btn.querySelector('span').textContent=on?'Salir':'Pantalla completa';
+ function sync(){btn.setAttribute('aria-pressed',on);btn.setAttribute('aria-label',on?'Salir de pantalla completa':'Pantalla completa');btn.title=on?'Salir (Esc)':'Pantalla completa (tecla F)';btn.querySelector('span').textContent=on?'Salir':'Pantalla completa';
   card.classList.toggle('fs',on);document.body.classList.toggle('fslock',on);$('#fsDef').hidden=!on||!$('#defCard').innerHTML;
   if(on)$('#fsDef').innerHTML=$('#defCard').innerHTML;draw();}
  function enter(){on=true;sync();try{const r=card.requestFullscreen?card.requestFullscreen():card.webkitRequestFullscreen?card.webkitRequestFullscreen():null;if(r&&r.catch)r.catch(()=>{})}catch(e){}
@@ -1676,6 +1719,9 @@ function pAfter(q,ok){
  const orig=renderPanel;renderPanel=function(){orig();if(on){const h=$('#defCard').innerHTML;$('#fsDef').innerHTML=h;$('#fsDef').hidden=!h}};
  $('#fsDef').addEventListener('click',e=>{if(e.target.closest('[data-close]')){sel=null;draw();renderPanel()}});
 })();
+
+/* ---------- fondo animado solo en Proceso ---------- */
+(function(){const set=()=>{const h=location.hash.slice(1);document.body.dataset.view=['leer','general','examen','practica'].includes(h)?h:'proceso'};set();addEventListener('hashchange',set);})();
 
 let leerDone=false,leerObs=null;
 function compCard(id,i){const d=DEF[id];const role=i!=null&&d.r&&d.r[i];
